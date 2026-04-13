@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 import {
   Wifi,
   Car,
@@ -10,180 +11,131 @@ import {
   FileText,
   CreditCard,
   HeartPulse,
+  ArrowRight,
+  Sparkles,
 } from "lucide-react";
 
 const arrivalItems = [
-  {
-    icon: Wifi,
-    title: "eSIM Data",
-    desc: "Activated the second you land. No queues, no physical card.",
-  },
-  {
-    icon: Car,
-    title: "Airport Transfer",
-    desc: "Private driver waiting at Ngurah Rai with your name.",
-  },
-  {
-    icon: Bike,
-    title: "Scooter Delivery",
-    desc: "Your ride delivered to your villa on the first morning.",
-  },
+  { icon: Wifi, title: "eSIM Data", desc: "Activated the second you land. No queues, no physical card.", accent: "coral" },
+  { icon: Car, title: "Airport Transfer", desc: "Private driver at Ngurah Rai with your name on a sign.", accent: "lagoon" },
+  { icon: Bike, title: "Scooter Delivery", desc: "Your ride delivered to your villa on the first morning.", accent: "gold" },
 ];
 
 const services = [
-  {
-    icon: Home,
-    title: "Villa Booking",
-    desc: "Curated stays with verified hosts",
-    color: "bg-lagoon/10 text-lagoon",
-  },
-  {
-    icon: Compass,
-    title: "Activities",
-    desc: "Temples, rice terraces, diving spots",
-    color: "bg-emerald/10 text-emerald",
-  },
-  {
-    icon: FileText,
-    title: "Visa & Tax Help",
-    desc: "Step-by-step guides, zero stress",
-    color: "bg-gold/10 text-gold",
-  },
-  {
-    icon: CreditCard,
-    title: "Currency Tools",
-    desc: "Live IDR converter + tips calculator",
-    color: "bg-purple-100 text-purple-600",
-  },
-  {
-    icon: HeartPulse,
-    title: "Travel Insurance",
-    desc: "Instant coverage via SafetyWing",
-    color: "bg-rose-100 text-rose-500",
-  },
-  {
-    icon: Wifi,
-    title: "Emergency Info",
-    desc: "Hospitals, police, embassy contacts",
-    color: "bg-orange-100 text-orange-500",
-  },
+  { icon: Home, title: "Villa Booking", desc: "Curated stays with verified hosts", color: "bg-cyan-50 text-cyan-600" },
+  { icon: Compass, title: "Activities", desc: "Temples, rice terraces, diving spots", color: "bg-emerald-50 text-emerald-600" },
+  { icon: FileText, title: "Visa & Tax Help", desc: "Step-by-step guides, zero stress", color: "bg-amber-50 text-amber-600" },
+  { icon: CreditCard, title: "Currency Tools", desc: "Live IDR converter + tips calc", color: "bg-violet-50 text-violet-600" },
+  { icon: HeartPulse, title: "Travel Insurance", desc: "Instant coverage via SafetyWing", color: "bg-rose-50 text-rose-500" },
+  { icon: Wifi, title: "Emergency Info", desc: "Hospitals, police, embassy contacts", color: "bg-orange-50 text-orange-500" },
 ];
 
-const container = {
-  hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.1 },
-  },
-};
-
-const item = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-};
+function SectionTitle({ tag, title, subtitle }: { tag: string; title: string; subtitle: string }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 24 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.6 }}
+      className="text-center mb-14"
+    >
+      <span className="inline-block text-[0.75rem] font-semibold text-coral uppercase tracking-[0.15em] mb-3">{tag}</span>
+      <h2 className="text-[2rem] sm:text-[2.5rem] lg:text-[3rem] font-bold tracking-[-0.03em] leading-[1.1] mb-4">{title}</h2>
+      <p className="text-[1.05rem] text-foreground/45 max-w-xl mx-auto leading-relaxed font-[350]">{subtitle}</p>
+    </motion.div>
+  );
+}
 
 export default function Services() {
-  return (
-    <section id="services" className="py-24 lg:py-32">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        {/* Section header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-16"
-        >
-          <span className="text-sm font-semibold text-coral uppercase tracking-wider">
-            Everything you need
-          </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mt-3 mb-5">
-            One app. Every service.
-          </h2>
-          <p className="text-lg text-foreground/60 max-w-2xl mx-auto">
-            From the moment you book your flight to the last day of your trip,
-            Balloon handles the logistics so you can focus on the experience.
-          </p>
-        </motion.div>
+  const gridRef = useRef(null);
+  const gridInView = useInView(gridRef, { once: true, margin: "-60px" });
 
-        {/* Arrival Package (hero card) */}
+  return (
+    <section id="services" className="py-24 lg:py-32 relative">
+      <div className="max-w-7xl mx-auto px-6 lg:px-10">
+        <SectionTitle
+          tag="Everything you need"
+          title="One app. Every service."
+          subtitle="From booking to the last day of your trip — Balloon handles the logistics."
+        />
+
+        {/* Arrival Package */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 32 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6 }}
-          className="relative mb-16 rounded-3xl overflow-hidden"
+          className="relative mb-14"
         >
-          <div className="animated-border p-[2px] rounded-3xl">
-            <div className="bg-white rounded-3xl p-8 lg:p-12">
-              <div className="flex flex-col lg:flex-row items-start lg:items-center gap-6 mb-8">
-                <div className="px-4 py-1.5 rounded-full bg-coral/10 text-coral text-sm font-semibold">
-                  Arrival Essentials
+          <div className="animated-border p-[1.5px] rounded-[1.5rem]">
+            <div className="bg-card rounded-[calc(1.5rem-1.5px)] p-7 lg:p-10">
+              <div className="flex flex-col lg:flex-row lg:items-center gap-5 mb-8">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-coral/10 flex items-center justify-center">
+                    <Sparkles className="w-5 h-5 text-coral" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl lg:text-2xl font-bold tracking-tight">Arrival Essentials</h3>
+                    <p className="text-[0.85rem] text-foreground/40">One package. Booked before departure.</p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="text-2xl lg:text-3xl font-bold">
-                    Land ready. Not lost.
-                  </h3>
-                  <p className="text-foreground/60 mt-1">
-                    One package, booked before departure. Everything activated
-                    on arrival.
-                  </p>
-                </div>
-                <div className="lg:ml-auto">
-                  <span className="text-3xl font-bold gradient-text">$49</span>
-                  <span className="text-foreground/40 ml-1">/person</span>
+                <div className="lg:ml-auto flex items-baseline gap-1.5">
+                  <span className="text-3xl font-bold tracking-tight">$49</span>
+                  <span className="text-foreground/30 text-sm">/person</span>
                 </div>
               </div>
 
-              <div className="grid sm:grid-cols-3 gap-6">
-                {arrivalItems.map((svc, i) => (
+              <div className="grid sm:grid-cols-3 gap-4">
+                {arrivalItems.map((item, i) => (
                   <motion.div
                     key={i}
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 16 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ delay: i * 0.15, duration: 0.4 }}
-                    className="flex items-start gap-4 p-5 rounded-2xl bg-sand/60 hover:bg-sand transition-colors"
+                    transition={{ delay: 0.1 + i * 0.1, duration: 0.5 }}
+                    className="group flex items-start gap-4 p-5 rounded-2xl bg-background hover:bg-sand transition-colors duration-300"
                   >
-                    <div className="w-12 h-12 rounded-xl bg-coral/10 flex items-center justify-center shrink-0">
-                      <svc.icon className="w-6 h-6 text-coral" />
+                    <div className="w-11 h-11 rounded-xl bg-coral/8 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-300">
+                      <item.icon className="w-5 h-5 text-coral" />
                     </div>
                     <div>
-                      <h4 className="font-semibold text-base">{svc.title}</h4>
-                      <p className="text-sm text-foreground/50 mt-0.5">
-                        {svc.desc}
-                      </p>
+                      <h4 className="font-semibold text-[0.9rem] mb-0.5">{item.title}</h4>
+                      <p className="text-[0.8rem] text-foreground/40 leading-relaxed">{item.desc}</p>
                     </div>
                   </motion.div>
                 ))}
+              </div>
+
+              <div className="mt-6 pt-6 border-t border-foreground/[0.04] flex flex-col sm:flex-row items-center justify-between gap-4">
+                <p className="text-[0.825rem] text-foreground/35">Includes insurance, helmets, and 24/7 concierge support.</p>
+                <a href="#cta" className="group flex items-center gap-1.5 text-[0.85rem] font-semibold text-coral hover:text-coral-dark transition-colors">
+                  Pre-order now <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                </a>
               </div>
             </div>
           </div>
         </motion.div>
 
         {/* Services grid */}
-        <motion.div
-          variants={container}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5"
-        >
+        <div ref={gridRef} className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {services.map((svc, i) => (
             <motion.div
               key={i}
-              variants={item}
-              className="group p-6 rounded-2xl bg-white border border-foreground/5 hover:border-coral/20 hover:shadow-lg hover:shadow-coral/5 transition-all cursor-pointer"
+              initial={{ opacity: 0, y: 24 }}
+              animate={gridInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: i * 0.08, duration: 0.5 }}
+              className="group p-6 rounded-2xl bg-card border border-foreground/[0.04] hover:border-foreground/[0.08] hover:shadow-[0_4px_24px_rgba(0,0,0,0.04)] transition-all duration-300 cursor-pointer"
             >
-              <div
-                className={`w-12 h-12 rounded-xl ${svc.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}
-              >
-                <svc.icon className="w-6 h-6" />
+              <div className={`w-11 h-11 rounded-xl ${svc.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                <svc.icon className="w-5 h-5" />
               </div>
-              <h4 className="font-semibold text-lg mb-1">{svc.title}</h4>
-              <p className="text-sm text-foreground/50">{svc.desc}</p>
+              <h4 className="font-semibold text-[0.95rem] mb-1">{svc.title}</h4>
+              <p className="text-[0.825rem] text-foreground/40">{svc.desc}</p>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

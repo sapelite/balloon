@@ -1,0 +1,126 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+// ─── Users ───────────────────────────────────────────────
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String?
+  avatar        String?
+  provider      String    @default("email") // google | apple | email
+  passwordHash  String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  bookings      Booking[]
+  reviews       Review[]
+  referralCode  String?   @unique
+  referredBy    String?
+}
+
+// ─── Partners ────────────────────────────────────────────
+model Partner {
+  id          String   @id @default(cuid())
+  name        String
+  slug        String   @unique
+  category    String   // scooter | villa | restaurant | beach_club | spa | transport | telecom | insurance
+  description String
+  longDesc    String?
+  image       String
+  gallery     String?  // JSON array of image URLs
+  rating      Float    @default(0)
+  reviewCount Int      @default(0)
+  location    String
+  area        String   // canggu | seminyak | ubud | kuta | uluwatu | nusa_dua
+  priceRange  String?  // $ | $$ | $$$
+  features    String?  // JSON array of feature strings
+  phone       String?
+  website     String?
+  isVerified  Boolean  @default(false)
+  isFeatured  Boolean  @default(false)
+  discount    String?  // e.g. "10% off with Bali Pass"
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  services    Service[]
+  reviews     Review[]
+  bookings    Booking[]
+}
+
+// ─── Services (offered by partners) ─────────────────────
+model Service {
+  id          String  @id @default(cuid())
+  partnerId   String
+  partner     Partner @relation(fields: [partnerId], references: [id])
+  name        String
+  description String
+  price       Float
+  currency    String  @default("USD")
+  unit        String? // per_day | per_trip | one_time
+  image       String?
+  isAvailable Boolean @default(true)
+
+  bookings    Booking[]
+}
+
+// ─── Bookings ────────────────────────────────────────────
+model Booking {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  partnerId   String
+  partner     Partner  @relation(fields: [partnerId], references: [id])
+  serviceId   String
+  service     Service  @relation(fields: [serviceId], references: [id])
+  status      String   @default("pending") // pending | confirmed | active | completed | cancelled
+  startDate   DateTime
+  endDate     DateTime?
+  totalPrice  Float
+  currency    String   @default("USD")
+  notes       String?
+  address     String?
+  qrCode      String?  // unique QR for this booking
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ─── Reviews ─────────────────────────────────────────────
+model Review {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  partnerId String
+  partner   Partner  @relation(fields: [partnerId], references: [id])
+  rating    Int      // 1-5
+  comment   String
+  createdAt DateTime @default(now())
+}
+
+// ─── Guides (free content / lead magnets) ────────────────
+model Guide {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  category    String   // visa | tax | emergency | currency | lexicon | tips
+  excerpt     String
+  content     String   // full markdown content
+  icon        String?  // lucide icon name
+  isFree      Boolean  @default(true)
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ─── Waitlist ────────────────────────────────────────────
+model Waitlist {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  source    String?  // hero | cta | guide | partner
+  createdAt DateTime @default(now())
+}

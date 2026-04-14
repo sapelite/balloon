@@ -21,6 +21,7 @@ import {
   Mail,
   Check,
 } from "lucide-react";
+import SectionTitle from "@/components/SectionTitle";
 
 const OFFERS = [
   {
@@ -100,7 +101,7 @@ export default function EntrepriseClient() {
           <motion.span
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-coral/10 text-coral text-[0.72rem] font-bold uppercase tracking-[0.15em] mb-5"
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-coral/10 text-coral text-[0.75rem] font-semibold uppercase tracking-[0.15em] mb-5"
           >
             <Sparkles className="w-3 h-3" /> Balloon Business
           </motion.span>
@@ -108,7 +109,7 @@ export default function EntrepriseClient() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.08 }}
-            className="text-[2rem] sm:text-[2.75rem] lg:text-[3.5rem] font-bold tracking-[-0.03em] leading-[1.08] mb-5"
+            className="text-[2rem] sm:text-[2.75rem] lg:text-[3.5rem] font-bold tracking-[-0.03em] leading-[1.1] mb-5"
           >
             Boost your marketing with{" "}
             <span className="bg-linear-to-r from-coral via-gold to-coral-dark bg-clip-text text-transparent">
@@ -233,17 +234,11 @@ export default function EntrepriseClient() {
       {/* Offer grid */}
       <section id="offer" className="py-24 lg:py-32 bg-card">
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
-          <div className="text-center mb-14">
-            <span className="inline-block text-[0.75rem] font-semibold text-coral uppercase tracking-[0.15em] mb-3">
-              What we build for you
-            </span>
-            <h2 className="text-[2rem] sm:text-[2.5rem] lg:text-[3rem] font-bold tracking-[-0.03em] leading-[1.1] mb-4">
-              Your whole digital, handled.
-            </h2>
-            <p className="text-[1.05rem] text-foreground/45 max-w-xl mx-auto leading-relaxed font-[350]">
-              Modular offer — pick what you need, we take care of the rest.
-            </p>
-          </div>
+          <SectionTitle
+            tag="What we build for you"
+            title="Your whole digital, handled."
+            subtitle="Modular offer — pick what you need, we take care of the rest."
+          />
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
             {OFFERS.map((o, i) => (
@@ -279,7 +274,7 @@ export default function EntrepriseClient() {
             <div className="absolute -top-10 -right-10 w-60 h-60 rounded-full bg-coral/20 blur-3xl" />
             <div className="relative grid lg:grid-cols-[1fr_auto] gap-8 items-center">
               <div>
-                <span className="inline-block text-[0.7rem] font-bold text-gold uppercase tracking-[0.15em] mb-3">
+                <span className="inline-block text-[0.75rem] font-semibold text-gold uppercase tracking-[0.15em] mb-3">
                   Combined offer
                 </span>
                 <h3 className="text-[1.75rem] lg:text-[2.25rem] font-bold tracking-[-0.02em] leading-tight mb-4">

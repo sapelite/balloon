@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "skills": {
+    "accessibility": {
+      "source": "affaan-m/everything-claude-code",
+      "sourceType": "github",
+      "computedHash": "075465dbf841875597a95f3cc43d80e34149bc7332c885c0c15eee346ca686c2"
+    },
+    "architecture-decision-records": {
+      "source": "affaan-m/everything-claude-code",
+      "sourceType": "github",
+      "computedHash": "8d9e40da770364616b711bc2958429fc56bf08878cd98e1931be5501f3d6bc66"
+    },
+    "article-writing": {
+      "source": "affaan-m/everything-claude-code",
+      "sourceType": "github",
+      "computedHash": "817681512514c182560c980986b1400f7c9951c36271fd6870c7c376d0ab3a99"
+    },
+    "design-system": {
+      "source": "affaan-m/everything-claude-code",
+      "sourceType": "github",
+      "computedHash": "efa25e1d86526877ffaa7e7b7797ac430b4af66d87994dc4e046e52b909fbc4e"
+    }
+  }
+}

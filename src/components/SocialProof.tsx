@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { MapPin, X } from "lucide-react";
 
 type Event = {
@@ -25,6 +25,7 @@ const EVENTS: Event[] = [
 export default function SocialProof() {
   const [idx, setIdx] = useState(-1);
   const [dismissed, setDismissed] = useState(false);
+  const advanceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     if (dismissed) return;
@@ -35,11 +36,16 @@ export default function SocialProof() {
   useEffect(() => {
     if (dismissed || idx < 0) return;
     const cycle = setTimeout(() => {
-      // hide briefly, then advance
       setIdx(-2);
-      setTimeout(() => setIdx((i) => (i < 0 ? 1 : (i + 1) % EVENTS.length)), 600);
+      advanceRef.current = setTimeout(
+        () => setIdx((i) => (i < 0 ? 1 : (i + 1) % EVENTS.length)),
+        600
+      );
     }, 5500);
-    return () => clearTimeout(cycle);
+    return () => {
+      clearTimeout(cycle);
+      if (advanceRef.current) clearTimeout(advanceRef.current);
+    };
   }, [idx, dismissed]);
 
   const e = idx >= 0 ? EVENTS[idx] : null;
@@ -50,6 +56,8 @@ export default function SocialProof() {
         {e && !dismissed && (
           <motion.div
             key={idx}
+            role="status"
+            aria-live="polite"
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
@@ -69,8 +77,8 @@ export default function SocialProof() {
             </div>
             <button
               onClick={() => setDismissed(true)}
-              aria-label="Dismiss"
-              className="text-foreground/30 hover:text-foreground/60 transition-colors shrink-0"
+              aria-label="Dismiss notification"
+              className="p-1.5 -m-1.5 text-foreground/30 hover:text-foreground/60 transition-colors shrink-0"
             >
               <X className="w-3.5 h-3.5" />
             </button>

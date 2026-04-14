@@ -293,7 +293,7 @@ export default function TripGuideClient({
       </div>
 
       {/* Hero */}
-      <div className="relative overflow-hidden bg-gradient-to-br from-coral/5 via-gold/5 to-lagoon/5 border-b border-foreground/5">
+      <div className="relative overflow-hidden bg-linear-to-br from-coral/5 via-gold/5 to-lagoon/5 border-b border-foreground/5">
         <div className="absolute inset-0 opacity-30">
           <div className="absolute top-10 left-1/4 w-72 h-72 bg-coral rounded-full blur-[120px]" />
           <div className="absolute bottom-0 right-1/4 w-72 h-72 bg-lagoon rounded-full blur-[120px]" />
@@ -420,7 +420,7 @@ export default function TripGuideClient({
                     transition={{ delay: i * 0.05 }}
                     className="bg-white rounded-3xl border border-foreground/5 overflow-hidden hover:shadow-lg transition-all"
                   >
-                    <div className={`h-24 bg-gradient-to-br ${spot.color} flex items-end p-5 relative`}>
+                    <div className={`h-24 bg-linear-to-br ${spot.color} flex items-end p-5 relative`}>
                       <div className="absolute top-4 right-5 opacity-15">
                         <spot.icon className="w-20 h-20" />
                       </div>
@@ -531,7 +531,7 @@ export default function TripGuideClient({
 
             {tab === "vip" && (
               <div className="space-y-4">
-                <div className="bg-gradient-to-br from-foreground to-[#2A2A4E] rounded-3xl p-8 text-white relative overflow-hidden">
+                <div className="bg-linear-to-br from-foreground to-[#2A2A4E] rounded-3xl p-8 text-white relative overflow-hidden">
                   <div className="absolute top-0 right-0 w-64 h-64 bg-coral/20 blur-[100px]" />
                   <div className="relative">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/10 text-xs font-semibold mb-4">
@@ -574,7 +574,7 @@ export default function TripGuideClient({
         </AnimatePresence>
 
         {/* Footer CTA */}
-        <div className="mt-12 p-6 rounded-2xl bg-gradient-to-r from-coral/5 to-lagoon/5 border border-coral/10 flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
+        <div className="mt-12 p-6 rounded-2xl bg-linear-to-r from-coral/5 to-lagoon/5 border border-coral/10 flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
           <Sparkles className="w-8 h-8 text-coral shrink-0" />
           <div className="flex-1">
             <p className="font-semibold">Want more spots?</p>

@@ -26,7 +26,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-2">
             <div className="flex items-center gap-2.5 mb-4">
-              <div className="w-8 h-8 rounded-[9px] bg-gradient-to-br from-coral to-coral-dark flex items-center justify-center">
+              <div className="w-8 h-8 rounded-[9px] bg-linear-to-br from-coral to-coral-dark flex items-center justify-center">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="text-white">
                   <path d="M12 2C8 2 5 5.5 5 9.5C5 14 12 19 12 19C12 19 19 14 19 9.5C19 5.5 16 2 12 2Z" fill="currentColor" opacity="0.9" />
                   <circle cx="12" cy="9" r="2.5" fill="white" opacity="0.9" />

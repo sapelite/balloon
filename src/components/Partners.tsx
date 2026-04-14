@@ -96,7 +96,7 @@ export default function Partners() {
           transition={{ duration: 0.5 }}
           className="mt-12 text-center"
         >
-          <div className="inline-flex flex-col sm:flex-row items-center gap-5 py-5 px-7 rounded-2xl bg-gradient-to-r from-emerald/[0.04] to-lagoon/[0.04] border border-emerald/10">
+          <div className="inline-flex flex-col sm:flex-row items-center gap-5 py-5 px-7 rounded-2xl bg-linear-to-r from-emerald/[0.04] to-lagoon/[0.04] border border-emerald/10">
             <p className="text-foreground/60 text-[0.9rem]">
               <span className="font-semibold text-foreground/80">Local business?</span>{" "}
               Join our partner network — free for 6 months.

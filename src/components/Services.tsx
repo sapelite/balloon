@@ -14,6 +14,7 @@ import {
   ArrowRight,
   Sparkles,
 } from "lucide-react";
+import SectionTitle from "./SectionTitle";
 
 const arrivalItems = [
   { icon: Wifi, title: "eSIM Data", desc: "Activated the second you land. No queues, no physical card.", accent: "coral" },
@@ -29,24 +30,6 @@ const services = [
   { icon: HeartPulse, title: "Travel Insurance", desc: "Instant coverage via SafetyWing", color: "bg-rose-50 text-rose-500" },
   { icon: Wifi, title: "Emergency Info", desc: "Hospitals, police, embassy contacts", color: "bg-orange-50 text-orange-500" },
 ];
-
-function SectionTitle({ tag, title, subtitle }: { tag: string; title: string; subtitle: string }) {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 24 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6 }}
-      className="text-center mb-14"
-    >
-      <span className="inline-block text-[0.75rem] font-semibold text-coral uppercase tracking-[0.15em] mb-3">{tag}</span>
-      <h2 className="text-[2rem] sm:text-[2.5rem] lg:text-[3rem] font-bold tracking-[-0.03em] leading-[1.1] mb-4">{title}</h2>
-      <p className="text-[1.05rem] text-foreground/45 max-w-xl mx-auto leading-relaxed font-[350]">{subtitle}</p>
-    </motion.div>
-  );
-}
 
 export default function Services() {
   const gridRef = useRef(null);

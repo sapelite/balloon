@@ -21,11 +21,11 @@ export default function Hero() {
       {/* Decorative orbs */}
       <motion.div
         style={{ y }}
-        className="absolute top-[10%] right-[15%] w-[500px] h-[500px] rounded-full bg-gradient-to-br from-coral/[0.06] to-transparent blur-[80px]"
+        className="absolute top-[10%] right-[15%] w-[500px] h-[500px] rounded-full bg-linear-to-br from-coral/[0.06] to-transparent blur-[80px]"
       />
       <motion.div
         style={{ y: useTransform(scrollYProgress, [0, 1], [0, 80]) }}
-        className="absolute bottom-[10%] left-[10%] w-[400px] h-[400px] rounded-full bg-gradient-to-tr from-lagoon/[0.05] to-transparent blur-[80px]"
+        className="absolute bottom-[10%] left-[10%] w-[400px] h-[400px] rounded-full bg-linear-to-tr from-lagoon/[0.05] to-transparent blur-[80px]"
       />
 
       {/* Grid pattern */}
@@ -141,7 +141,7 @@ export default function Hero() {
       </motion.div>
 
       {/* Bottom fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-linear-to-t from-background to-transparent" />
     </section>
   );
 }

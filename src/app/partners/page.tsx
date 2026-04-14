@@ -87,7 +87,7 @@ export default function PartnersPage() {
       <div className="bg-white border-b border-foreground/5 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 py-4 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-coral to-coral-dark flex items-center justify-center">
+            <div className="w-9 h-9 rounded-xl bg-linear-to-br from-coral to-coral-dark flex items-center justify-center">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="text-white">
                 <path d="M12 2C8 2 5 5.5 5 9.5C5 14 12 19 12 19C12 19 19 14 19 9.5C19 5.5 16 2 12 2Z" fill="currentColor" opacity="0.9" />
                 <circle cx="12" cy="9" r="2.5" fill="white" />
@@ -95,7 +95,7 @@ export default function PartnersPage() {
             </div>
             <span className="text-xl font-bold tracking-tight">Ball<span className="text-coral">oo</span>n</span>
           </Link>
-          <Link href="/auth" className="px-5 py-2 rounded-full bg-gradient-to-r from-coral to-coral-dark text-white text-sm font-semibold">
+          <Link href="/auth" className="px-5 py-2 rounded-full bg-linear-to-r from-coral to-coral-dark text-white text-sm font-semibold">
             Sign In
           </Link>
         </div>
@@ -190,7 +190,7 @@ export default function PartnersPage() {
                   className="block bg-white rounded-2xl border border-foreground/5 overflow-hidden hover:shadow-lg hover:border-coral/20 transition-all group"
                 >
                   {/* Image placeholder */}
-                  <div className="relative h-44 bg-gradient-to-br from-sand to-foreground/5 flex items-center justify-center">
+                  <div className="relative h-44 bg-linear-to-br from-sand to-foreground/5 flex items-center justify-center">
                     <div className="text-4xl opacity-20">
                       {partner.category === "scooter" && "🏍️"}
                       {partner.category === "villa" && "🏡"}

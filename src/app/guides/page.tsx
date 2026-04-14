@@ -53,7 +53,7 @@ export default async function GuidesPage() {
       <div className="bg-white border-b border-foreground/5">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 py-6 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-coral to-coral-dark flex items-center justify-center">
+            <div className="w-9 h-9 rounded-xl bg-linear-to-br from-coral to-coral-dark flex items-center justify-center">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="text-white">
                 <path d="M12 2C8 2 5 5.5 5 9.5C5 14 12 19 12 19C12 19 19 14 19 9.5C19 5.5 16 2 12 2Z" fill="currentColor" opacity="0.9" />
                 <circle cx="12" cy="9" r="2.5" fill="white" />
@@ -63,7 +63,7 @@ export default async function GuidesPage() {
           </Link>
           <Link
             href="/auth"
-            className="px-5 py-2 rounded-full bg-gradient-to-r from-coral to-coral-dark text-white text-sm font-semibold"
+            className="px-5 py-2 rounded-full bg-linear-to-r from-coral to-coral-dark text-white text-sm font-semibold"
           >
             Sign In
           </Link>
@@ -128,7 +128,7 @@ export default async function GuidesPage() {
 
           {/* CTA */}
           <div className="mt-16 text-center">
-            <div className="inline-flex flex-col sm:flex-row items-center gap-4 p-6 rounded-2xl bg-gradient-to-r from-coral/5 to-lagoon/5 border border-coral/10">
+            <div className="inline-flex flex-col sm:flex-row items-center gap-4 p-6 rounded-2xl bg-linear-to-r from-coral/5 to-lagoon/5 border border-coral/10">
               <Shield className="w-8 h-8 text-coral" />
               <div className="text-left">
                 <p className="font-semibold">Want the full Bali experience?</p>

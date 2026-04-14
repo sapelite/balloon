@@ -105,13 +105,13 @@ export default function Pricing() {
           transition={{ duration: 0.6 }}
           className="text-center mb-10"
         >
-          <span className="inline-block text-[0.75rem] font-semibold text-gold uppercase tracking-[0.15em] mb-3">
+          <span className="inline-block text-[0.75rem] font-semibold text-coral uppercase tracking-[0.15em] mb-3">
             Transparent pricing
           </span>
           <h2 className="text-[2rem] sm:text-[2.5rem] lg:text-[3rem] font-bold tracking-[-0.03em] leading-[1.1] mb-4">
             Choose your style
           </h2>
-          <p className="text-[1.05rem] text-foreground/45 max-w-lg mx-auto leading-relaxed font-[350]">
+          <p className="text-[1.05rem] text-foreground/45 max-w-xl mx-auto leading-relaxed font-[350]">
             One price. No hidden fees. Cancel within 7 days, fully refunded.
           </p>
         </motion.div>
@@ -138,6 +138,8 @@ export default function Pricing() {
             max={30}
             value={days}
             onChange={(e) => setDays(parseInt(e.target.value, 10))}
+            aria-label="Trip length in days"
+            aria-valuetext={`${days} ${days === 1 ? "day" : "days"}`}
             className="w-full accent-coral cursor-pointer"
           />
           <div className="flex justify-between text-[0.65rem] text-foreground/35 mt-1.5">

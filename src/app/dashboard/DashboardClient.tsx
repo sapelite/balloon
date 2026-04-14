@@ -115,7 +115,7 @@ export default function DashboardClient({
       <div className="bg-white border-b border-foreground/5 sticky top-0 z-50">
         <div className="max-w-5xl mx-auto px-6 lg:px-8 py-4 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-coral to-coral-dark flex items-center justify-center">
+            <div className="w-9 h-9 rounded-xl bg-linear-to-br from-coral to-coral-dark flex items-center justify-center">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="text-white">
                 <path d="M12 2C8 2 5 5.5 5 9.5C5 14 12 19 12 19C12 19 19 14 19 9.5C19 5.5 16 2 12 2Z" fill="currentColor" opacity="0.9" />
                 <circle cx="12" cy="9" r="2.5" fill="white" />
@@ -124,7 +124,7 @@ export default function DashboardClient({
             <span className="text-xl font-bold tracking-tight">Ball<span className="text-coral">oo</span>n</span>
           </Link>
           <div className="flex items-center gap-3">
-            <button className="relative p-2 rounded-lg hover:bg-sand transition-colors">
+            <button aria-label="Notifications" className="relative p-2 rounded-lg hover:bg-sand transition-colors">
               <Bell className="w-5 h-5 text-foreground/40" />
               <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-coral" />
             </button>
@@ -197,7 +197,7 @@ export default function DashboardClient({
         {/* Pack banner */}
         <Link
           href="/trip-guide"
-          className="block mb-8 rounded-2xl bg-gradient-to-r from-foreground to-[#2A2A4E] text-white p-5 hover:shadow-lg transition-shadow group"
+          className="block mb-8 rounded-2xl bg-linear-to-r from-foreground to-[#2A2A4E] text-white p-5 hover:shadow-lg transition-shadow group"
         >
           <div className="flex items-center gap-4">
             <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center shrink-0">

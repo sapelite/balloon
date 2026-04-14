@@ -41,8 +41,8 @@ export default function HowItWorks() {
 
   return (
     <section id="how-it-works" className="py-24 lg:py-32 bg-card relative overflow-hidden">
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-foreground/[0.06] to-transparent" />
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-foreground/[0.06] to-transparent" />
+      <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-foreground/[0.06] to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-foreground/[0.06] to-transparent" />
 
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
         <motion.div
@@ -70,7 +70,7 @@ export default function HowItWorks() {
               initial={{ scaleX: 0 }}
               animate={inView ? { scaleX: 1 } : {}}
               transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }}
-              className="h-full bg-gradient-to-r from-coral via-lagoon to-emerald origin-left opacity-15 rounded-full"
+              className="h-full bg-linear-to-r from-coral via-lagoon to-emerald origin-left opacity-15 rounded-full"
             />
           </div>
 
@@ -84,7 +84,7 @@ export default function HowItWorks() {
                 className="relative text-center group"
               >
                 <div className="relative mx-auto mb-6">
-                  <div className={`w-[4.25rem] h-[4.25rem] rounded-2xl bg-gradient-to-br ${step.gradient} flex items-center justify-center mx-auto shadow-lg group-hover:shadow-xl group-hover:scale-105 transition-all duration-300`}>
+                  <div className={`w-[4.25rem] h-[4.25rem] rounded-2xl bg-linear-to-br ${step.gradient} flex items-center justify-center mx-auto shadow-lg group-hover:shadow-xl group-hover:scale-105 transition-all duration-300`}>
                     <step.icon className="w-7 h-7 text-white" />
                   </div>
                   <div className="absolute -top-1.5 -right-1.5 w-6 h-6 rounded-full bg-card shadow-sm border border-foreground/[0.06] flex items-center justify-center">

@@ -61,7 +61,7 @@ function FAQItem({ q, a, index }: { q: string; a: string; index: number }) {
 export default function FAQ() {
   return (
     <section id="faq" className="py-24 lg:py-32 bg-card relative">
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-foreground/[0.06] to-transparent" />
+      <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-foreground/[0.06] to-transparent" />
 
       <div className="max-w-3xl mx-auto px-6 lg:px-10">
         <motion.div

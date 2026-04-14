@@ -59,7 +59,7 @@ function AuthInner() {
   return (
     <div className="min-h-screen relative flex items-center justify-center overflow-hidden">
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#1A1A2E] via-[#16213E] to-[#0F3460]" />
+      <div className="absolute inset-0 bg-linear-to-br from-[#1A1A2E] via-[#16213E] to-[#0F3460]" />
       <div className="absolute inset-0 opacity-20">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-coral rounded-full blur-[120px]" />
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-lagoon rounded-full blur-[120px]" />
@@ -74,7 +74,7 @@ function AuthInner() {
         {/* Logo */}
         <div className="text-center mb-8">
           <a href="/" className="inline-flex items-center gap-2">
-            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-coral to-coral-dark flex items-center justify-center shadow-lg shadow-coral/30">
+            <div className="w-12 h-12 rounded-2xl bg-linear-to-br from-coral to-coral-dark flex items-center justify-center shadow-lg shadow-coral/30">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-white">
                 <path d="M12 2C8 2 5 5.5 5 9.5C5 14 12 19 12 19C12 19 19 14 19 9.5C19 5.5 16 2 12 2Z" fill="currentColor" opacity="0.9" />
                 <circle cx="12" cy="9" r="2.5" fill="white" />
@@ -160,7 +160,7 @@ function AuthInner() {
             <button
               type="submit"
               disabled={loading !== null || !email}
-              className="w-full py-3.5 rounded-xl bg-gradient-to-r from-coral to-coral-dark text-white font-semibold text-sm shadow-lg shadow-coral/25 hover:shadow-coral/40 transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+              className="w-full py-3.5 rounded-xl bg-linear-to-r from-coral to-coral-dark text-white font-semibold text-sm shadow-lg shadow-coral/25 hover:shadow-coral/40 transition-all disabled:opacity-50 flex items-center justify-center gap-2"
             >
               {loading === "email" ? (
                 <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />

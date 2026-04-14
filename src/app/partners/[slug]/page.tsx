@@ -55,7 +55,7 @@ export default async function PartnerPage({ params }: Props) {
           <Link href="/partners" className="flex items-center gap-2 text-sm font-medium text-foreground/50 hover:text-coral transition-colors">
             <ArrowLeft className="w-4 h-4" /> Partners
           </Link>
-          <Link href="/auth" className="px-5 py-2 rounded-full bg-gradient-to-r from-coral to-coral-dark text-white text-sm font-semibold">
+          <Link href="/auth" className="px-5 py-2 rounded-full bg-linear-to-r from-coral to-coral-dark text-white text-sm font-semibold">
             Sign In
           </Link>
         </div>
@@ -65,7 +65,7 @@ export default async function PartnerPage({ params }: Props) {
         {/* Hero section */}
         <div className="bg-white rounded-3xl border border-foreground/5 overflow-hidden mb-8">
           {/* Image area */}
-          <div className="h-48 sm:h-64 bg-gradient-to-br from-sand via-coral/5 to-lagoon/5 flex items-center justify-center">
+          <div className="h-48 sm:h-64 bg-linear-to-br from-sand via-coral/5 to-lagoon/5 flex items-center justify-center">
             <div className="text-6xl opacity-20">
               {partner.category === "scooter" && "🏍️"}
               {partner.category === "villa" && "🏡"}
@@ -209,7 +209,7 @@ export default async function PartnerPage({ params }: Props) {
           {/* Sidebar */}
           <div className="space-y-6">
             {/* Book CTA */}
-            <div className="bg-gradient-to-br from-foreground to-[#2A2A4E] rounded-2xl p-6 text-white">
+            <div className="bg-linear-to-br from-foreground to-[#2A2A4E] rounded-2xl p-6 text-white">
               <h3 className="font-bold text-lg mb-2">Book via Balloon</h3>
               <p className="text-white/60 text-sm mb-4">
                 Get the best price and exclusive deals when you book through Balloon.

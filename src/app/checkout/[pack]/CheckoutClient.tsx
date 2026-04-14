@@ -308,7 +308,7 @@ export default function CheckoutClient({
                     <div className="mt-8 flex justify-end">
                       <button
                         onClick={() => setStep(2)}
-                        className="px-6 py-3 rounded-full bg-gradient-to-r from-coral to-coral-dark text-white font-semibold text-sm shadow-lg shadow-coral/20 hover:shadow-coral/40 transition-all flex items-center gap-2"
+                        className="px-6 py-3 rounded-full bg-linear-to-r from-coral to-coral-dark text-white font-semibold text-sm shadow-lg shadow-coral/20 hover:shadow-coral/40 transition-all flex items-center gap-2"
                       >
                         Continue <ChevronRight className="w-4 h-4" />
                       </button>
@@ -392,7 +392,7 @@ export default function CheckoutClient({
                       </button>
                       <button
                         onClick={() => setStep(3)}
-                        className="px-6 py-3 rounded-full bg-gradient-to-r from-coral to-coral-dark text-white font-semibold text-sm shadow-lg shadow-coral/20 hover:shadow-coral/40 transition-all flex items-center gap-2"
+                        className="px-6 py-3 rounded-full bg-linear-to-r from-coral to-coral-dark text-white font-semibold text-sm shadow-lg shadow-coral/20 hover:shadow-coral/40 transition-all flex items-center gap-2"
                       >
                         Review order <ChevronRight className="w-4 h-4" />
                       </button>
@@ -460,7 +460,7 @@ export default function CheckoutClient({
                       <button
                         onClick={submit}
                         disabled={loading}
-                        className="px-8 py-3 rounded-full bg-gradient-to-r from-coral to-coral-dark text-white font-semibold text-sm shadow-lg shadow-coral/30 hover:shadow-coral/50 transition-all flex items-center gap-2 disabled:opacity-60"
+                        className="px-8 py-3 rounded-full bg-linear-to-r from-coral to-coral-dark text-white font-semibold text-sm shadow-lg shadow-coral/30 hover:shadow-coral/50 transition-all flex items-center gap-2 disabled:opacity-60"
                       >
                         {loading ? (
                           <>
@@ -482,7 +482,7 @@ export default function CheckoutClient({
             {/* Right: sticky summary */}
             <aside className="lg:sticky lg:top-28 h-fit">
               <div className="bg-white rounded-2xl border border-foreground/5 overflow-hidden shadow-sm">
-                <div className="p-5 bg-gradient-to-br from-foreground to-[#2A2A4E] text-white">
+                <div className="p-5 bg-linear-to-br from-foreground to-[#2A2A4E] text-white">
                   <div className="flex items-center gap-2 mb-1 text-xs uppercase tracking-wider text-white/50 font-semibold">
                     <Sparkles className="w-3.5 h-3.5 text-coral" /> Your order
                   </div>

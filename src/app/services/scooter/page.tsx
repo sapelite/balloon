@@ -163,7 +163,7 @@ export default function ScooterPage() {
                 <button
                   onClick={() => selectedScooter && setStep(2)}
                   disabled={!selectedScooter}
-                  className="px-8 py-3 rounded-full bg-gradient-to-r from-coral to-coral-dark text-white font-semibold shadow-lg shadow-coral/25 hover:shadow-coral/40 transition-all disabled:opacity-30 disabled:cursor-not-allowed flex items-center gap-2"
+                  className="px-8 py-3 rounded-full bg-linear-to-r from-coral to-coral-dark text-white font-semibold shadow-lg shadow-coral/25 hover:shadow-coral/40 transition-all disabled:opacity-30 disabled:cursor-not-allowed flex items-center gap-2"
                 >
                   Next <ChevronRight className="w-4 h-4" />
                 </button>
@@ -240,7 +240,7 @@ export default function ScooterPage() {
                 <button
                   onClick={() => startDate && endDate && address && setStep(3)}
                   disabled={!startDate || !endDate || !address}
-                  className="px-8 py-3 rounded-full bg-gradient-to-r from-coral to-coral-dark text-white font-semibold shadow-lg shadow-coral/25 transition-all disabled:opacity-30 flex items-center gap-2"
+                  className="px-8 py-3 rounded-full bg-linear-to-r from-coral to-coral-dark text-white font-semibold shadow-lg shadow-coral/25 transition-all disabled:opacity-30 flex items-center gap-2"
                 >
                   Review Order <ChevronRight className="w-4 h-4" />
                 </button>
@@ -306,7 +306,7 @@ export default function ScooterPage() {
                   <button
                     onClick={handleConfirm}
                     disabled={saving}
-                    className="px-8 py-3 rounded-full bg-gradient-to-r from-coral to-coral-dark text-white font-semibold shadow-lg shadow-coral/25 hover:shadow-coral/40 transition-all flex items-center gap-2 disabled:opacity-60"
+                    className="px-8 py-3 rounded-full bg-linear-to-r from-coral to-coral-dark text-white font-semibold shadow-lg shadow-coral/25 hover:shadow-coral/40 transition-all flex items-center gap-2 disabled:opacity-60"
                   >
                     {saving ? (
                       <>

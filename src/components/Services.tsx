@@ -41,7 +41,7 @@ export default function Services() {
         <SectionTitle
           tag="Everything you need"
           title="One app. Every service."
-          subtitle="From booking to the last day of your trip — Balloon handles the logistics."
+          subtitle="From booking to the last day of your trip — Skyrol handles the logistics."
         />
 
         {/* Arrival Package */}

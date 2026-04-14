@@ -41,7 +41,7 @@ export async function POST(request: NextRequest) {
           .replace(/[._-]+/g, " ")
           .replace(/\b\w/g, (c) => c.toUpperCase());
 
-      const referralCode = `BALLOON-${derivedName.split(" ")[0].toUpperCase()}-${Math.random()
+      const referralCode = `SKYROL-${derivedName.split(" ")[0].toUpperCase()}-${Math.random()
         .toString(36)
         .slice(2, 6)
         .toUpperCase()}`;

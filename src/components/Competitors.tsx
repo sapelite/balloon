@@ -14,7 +14,7 @@ const features = [
 ];
 
 const competitors = [
-  { name: "Balloon", highlight: true, values: [true, true, true, true, true, true, true] },
+  { name: "Skyrol", highlight: true, values: [true, true, true, true, true, true, true] },
   { name: "Grab", highlight: false, values: [false, "partial", false, false, false, false, false] },
   { name: "Traveloka", highlight: false, values: [false, false, false, "partial", false, false, false] },
   { name: "Melalie", highlight: false, values: [false, false, true, false, false, false, false] },
@@ -54,13 +54,13 @@ export default function Competitors() {
           className="text-center mb-14"
         >
           <span className="inline-block text-[0.75rem] font-semibold text-lagoon uppercase tracking-[0.15em] mb-3">
-            Why Balloon
+            Why Skyrol
           </span>
           <h2 className="text-[2rem] sm:text-[2.5rem] lg:text-[3rem] font-bold tracking-[-0.03em] leading-[1.1] mb-4">
             The only all-in-one
           </h2>
           <p className="text-[1.05rem] text-foreground/45 max-w-lg mx-auto leading-relaxed font-[350]">
-            Others solve one piece. Balloon solves the whole picture.
+            Others solve one piece. Skyrol solves the whole picture.
           </p>
         </motion.div>
 

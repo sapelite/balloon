@@ -285,7 +285,7 @@ export default function ScooterPage() {
                     </div>
                     <div className="flex justify-between">
                       <span className="text-foreground/50 flex items-center gap-2"><Fuel className="w-4 h-4" /> Fuel</span>
-                      <span className="font-medium text-emerald">Free full tank (Balloon deal)</span>
+                      <span className="font-medium text-emerald">Free full tank (Skyrol deal)</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-foreground/50 flex items-center gap-2"><Wrench className="w-4 h-4" /> Support</span>

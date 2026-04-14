@@ -22,6 +22,91 @@ model User {
   reviews       Review[]
   referralCode  String?   @unique
   referredBy    String?
+
+  // Qualification profile (JSON-encoded answers)
+  profileAudience    String?   // traveler | business
+  profileData        String?   // JSON: answers
+  profileCompletedAt DateTime?
+
+  businessClient BusinessClient?
+}
+
+// ─── Business Clients (B2B dashboard) ────────────────────
+model BusinessClient {
+  id            String   @id @default(cuid())
+  userId        String   @unique
+  user          User     @relation(fields: [userId], references: [id])
+  businessName  String
+  industry      String?  // villa | restaurant | spa | beach_club | other
+  plan          String   @default("starter") // starter | growth | full
+  instagramHandle String?
+  tiktokHandle   String?
+  websiteUrl     String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  metrics       ClientMetric[]
+  insights      ClientInsight[]
+  content       ClientContent[]
+  briefings     ClientBriefing[]
+}
+
+// Daily/weekly metric snapshots
+model ClientMetric {
+  id         String   @id @default(cuid())
+  clientId   String
+  client     BusinessClient @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  platform   String   // instagram | tiktok | website | facebook | global
+  metricKey  String   // views | followers | engagement | reach | conversion | bookings
+  value      Float
+  delta      Float?   // % vs previous period
+  periodLabel String? // W1 | W2 | 2026-04-07 etc.
+  recordedAt DateTime @default(now())
+
+  @@index([clientId, platform, metricKey])
+}
+
+// Actionable tips / insights
+model ClientInsight {
+  id        String   @id @default(cuid())
+  clientId  String
+  client    BusinessClient @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  title     String
+  body      String
+  priority  String   @default("normal") // high | normal | low
+  status    String   @default("open")   // open | in_progress | done | dismissed
+  category  String?  // content | growth | conversion | ops
+  createdAt DateTime @default(now())
+}
+
+// Top-performing content
+model ClientContent {
+  id          String   @id @default(cuid())
+  clientId    String
+  client      BusinessClient @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  platform    String   // instagram | tiktok
+  postUrl     String?
+  thumbnail   String?
+  caption     String?
+  views       Int      @default(0)
+  likes       Int      @default(0)
+  comments    Int      @default(0)
+  shares      Int      @default(0)
+  publishedAt DateTime
+  createdAt   DateTime @default(now())
+}
+
+// Daily briefing text (manually entered or generated)
+model ClientBriefing {
+  id        String   @id @default(cuid())
+  clientId  String
+  client    BusinessClient @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  summary   String   // short headline
+  body      String   // full paragraph
+  nextAction String? // prompt for action
+  healthScore Int    @default(70) // 0-100
+  forDate   DateTime @default(now())
+  createdAt DateTime @default(now())
 }
 
 // ─── Partners ────────────────────────────────────────────

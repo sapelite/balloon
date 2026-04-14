@@ -16,6 +16,11 @@
       "sourceType": "github",
       "computedHash": "817681512514c182560c980986b1400f7c9951c36271fd6870c7c376d0ab3a99"
     },
+    "caveman": {
+      "source": "JuliusBrussee/caveman",
+      "sourceType": "github",
+      "computedHash": "ac5fb2168c653fa5d660b5f510a4688d210717c7e10eb8fd91ef0d9b59f4e96e"
+    },
     "design-system": {
       "source": "affaan-m/everything-claude-code",
       "sourceType": "github",

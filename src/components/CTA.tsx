@@ -87,7 +87,7 @@ export default function CTA() {
               <button
                 type="submit"
                 disabled={status === "loading" || !email}
-                className="group px-7 py-3.5 rounded-full bg-coral text-white font-semibold text-[0.9rem] shadow-[0_0_24px_rgba(255,99,99,0.3)] hover:shadow-[0_0_32px_rgba(255,99,99,0.45)] hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 disabled:opacity-50 flex items-center justify-center gap-2 shrink-0"
+                className="group px-7 py-3.5 rounded-full bg-coral text-white font-semibold text-[0.9rem] shadow-[0_0_24px_rgba(255,56,92,0.3)] hover:shadow-[0_0_32px_rgba(255,56,92,0.45)] hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 disabled:opacity-50 flex items-center justify-center gap-2 shrink-0"
               >
                 {status === "loading" ? (
                   <Loader2 className="w-4 h-4 animate-spin" />

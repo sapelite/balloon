@@ -29,10 +29,10 @@ export async function POST(req: NextRequest) {
     // ─── Demo User ────────────────────────────────────────
     const user = await db.user.create({
       data: {
-        email: "demo@balloon.app",
+        email: "demo@skyrol.app",
         name: "Alex Traveler",
         provider: "google",
-        referralCode: "BALLOON-ALEX",
+        referralCode: "SKYROL-ALEX",
       },
     });
 
@@ -50,7 +50,7 @@ export async function POST(req: NextRequest) {
         location: "Jl. Batu Bolong No. 42, Canggu", area: "canggu", priceRange: "$$",
         features: JSON.stringify(["Free delivery", "Insurance included", "24/7 support", "Premium helmets", "Phone mount"]),
         phone: "+62 812-3456-7890", isVerified: true, isFeatured: true,
-        discount: "Free full tank with Balloon",
+        discount: "Free full tank with Skyrol",
         services: { create: [
           { name: "Honda Scoopy 110cc", description: "Perfect for short rides. Automatic, easy to handle.", price: 5, unit: "per_day", image: "/services/scoopy.jpg" },
           { name: "Yamaha NMAX 155cc", description: "Powerful for long distances. ABS brakes, USB charger.", price: 8, unit: "per_day", image: "/services/nmax.jpg" },
@@ -66,7 +66,7 @@ export async function POST(req: NextRequest) {
         image: "/partners/scooter-2.jpg", rating: 4.5, reviewCount: 189,
         location: "Jl. Kayu Aya No. 15, Seminyak", area: "seminyak", priceRange: "$",
         features: JSON.stringify(["Budget friendly", "Monthly discounts", "Multiple pickup points"]),
-        phone: "+62 813-5555-1234", isVerified: true, discount: "-15% on weekly rentals via Balloon",
+        phone: "+62 813-5555-1234", isVerified: true, discount: "-15% on weekly rentals via Skyrol",
         services: { create: [
           { name: "Honda Beat 110cc", description: "Most affordable. Great for daily commutes.", price: 3.5, unit: "per_day" },
           { name: "Honda Vario 125cc", description: "Mid-range with good performance.", price: 6, unit: "per_day" },
@@ -100,7 +100,7 @@ export async function POST(req: NextRequest) {
         image: "/partners/villa-2.jpg", rating: 4.7, reviewCount: 234,
         location: "Jl. Suweta, Ubud", area: "ubud", priceRange: "$$",
         features: JSON.stringify(["Rice terrace views", "Yoga shala", "Organic breakfast", "Eco-friendly"]),
-        isVerified: true, discount: "Complimentary yoga class with Balloon booking",
+        isVerified: true, discount: "Complimentary yoga class with Skyrol booking",
         services: { create: [
           { name: "Bamboo Bungalow", description: "Eco bungalow with jungle views.", price: 45, unit: "per_day" },
           { name: "Rice Terrace Suite", description: "Premium suite overlooking rice paddies.", price: 85, unit: "per_day" },
@@ -193,7 +193,7 @@ export async function POST(req: NextRequest) {
         image: "/partners/insurance-1.jpg", rating: 4.5, reviewCount: 178,
         location: "Digital — instant policy", area: "canggu", priceRange: "$",
         features: JSON.stringify(["Medical coverage", "Emergency evacuation", "COVID coverage"]),
-        isVerified: true, discount: "First month free via Balloon referral",
+        isVerified: true, discount: "First month free via Skyrol referral",
         services: { create: [
           { name: "Nomad Insurance", description: "Medical + travel coverage. Monthly.", price: 42, unit: "per_month", currency: "USD" },
         ]},

@@ -89,10 +89,10 @@ export default function Hero() {
           className="flex flex-col sm:flex-row items-center justify-center gap-3.5"
         >
           <a
-            href="#cta"
-            className="group px-7 py-3.5 rounded-full bg-foreground text-white font-semibold text-[0.9rem] shadow-[0_1px_2px_rgba(0,0,0,0.1),0_4px_16px_rgba(0,0,0,0.1)] hover:shadow-[0_1px_2px_rgba(0,0,0,0.1),0_8px_24px_rgba(0,0,0,0.15)] hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 flex items-center gap-2"
+            href="/onboarding"
+            className="group px-7 py-3.5 rounded-full bg-coral text-white font-semibold text-[0.9rem] shadow-[0_1px_2px_rgba(255,56,92,0.15),0_4px_16px_rgba(255,56,92,0.25)] hover:shadow-[0_1px_2px_rgba(255,56,92,0.2),0_8px_24px_rgba(255,56,92,0.35)] hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 flex items-center gap-2"
           >
-            Join the Waitlist
+            Plan my Bali trip — 60s
             <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
           </a>
           <a

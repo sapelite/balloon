@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
 import { Menu, X, ArrowRight } from "lucide-react";
+import Wordmark from "@/components/Wordmark";
 
 const navLinks = [
   { label: "Services", href: "/#services" },
@@ -18,6 +19,17 @@ export default function Navbar() {
   const [hidden, setHidden] = useState(false);
   const [user, setUser] = useState<{ name: string | null; email: string } | null>(null);
   const { scrollY } = useScroll();
+
+  async function goToBusiness() {
+    try {
+      await fetch("/api/audience", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ audience: "business" }),
+      });
+    } catch {}
+    window.location.href = "/business";
+  }
 
   useEffect(() => {
     fetch("/api/auth/me")
@@ -45,18 +57,8 @@ export default function Navbar() {
     >
       <nav className="max-w-7xl mx-auto px-6 lg:px-10 h-[4.25rem] flex items-center justify-between">
         {/* Logo */}
-        <a href="/" className="flex items-center gap-2.5 group">
-          <div className="w-9 h-9 rounded-[10px] bg-linear-to-br from-coral to-coral-dark flex items-center justify-center shadow-[0_2px_8px_rgba(255,99,99,0.3)] group-hover:shadow-[0_4px_16px_rgba(255,99,99,0.4)] transition-shadow duration-300">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" className="text-white">
-              <path d="M12 2C8 2 5 5.5 5 9.5C5 14 12 19 12 19C12 19 19 14 19 9.5C19 5.5 16 2 12 2Z" fill="currentColor" opacity="0.9" />
-              <circle cx="12" cy="9" r="2.5" fill="white" opacity="0.9" />
-              <path d="M12 19L12 22" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-              <path d="M9 21H15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-            </svg>
-          </div>
-          <span className="text-[1.15rem] font-bold tracking-tight">
-            Ball<span className="text-coral">oo</span>n
-          </span>
+        <a href="/" className="flex items-center group">
+          <Wordmark className="text-[1.35rem]" />
         </a>
 
         {/* Desktop Links */}
@@ -77,12 +79,12 @@ export default function Navbar() {
           <a href="/trip-guide" className="text-[0.825rem] font-medium text-foreground/55 hover:text-foreground transition-colors px-3 py-2">
             Trip Guide
           </a>
-          <a
-            href="/entreprise"
+          <button
+            onClick={goToBusiness}
             className="text-[0.825rem] font-semibold px-3.5 py-2 rounded-full bg-linear-to-r from-coral/10 to-gold/10 text-coral hover:from-coral/15 hover:to-gold/15 transition-colors border border-coral/10"
           >
             For Business
-          </a>
+          </button>
           {user ? (
             <a
               href="/dashboard"
@@ -144,9 +146,12 @@ export default function Navbar() {
               <a href="/trip-guide" onClick={() => setMobileOpen(false)} className="block text-sm font-medium text-foreground/60 hover:text-foreground hover:bg-foreground/[0.03] transition-colors py-2.5 px-3 rounded-lg">
                 Trip Guide
               </a>
-              <a href="/entreprise" onClick={() => setMobileOpen(false)} className="block text-sm font-semibold text-coral bg-coral/5 hover:bg-coral/10 transition-colors py-2.5 px-3 rounded-lg">
+              <button
+                onClick={() => { setMobileOpen(false); goToBusiness(); }}
+                className="block w-full text-left text-sm font-semibold text-coral bg-coral/5 hover:bg-coral/10 transition-colors py-2.5 px-3 rounded-lg"
+              >
                 For Business
-              </a>
+              </button>
               <div className="pt-3 space-y-2">
                 {user ? (
                   <a

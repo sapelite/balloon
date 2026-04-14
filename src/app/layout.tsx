@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Balloon — Bali in One Click",
+  title: "Skyrol — Bali in One Click",
   description:
     "Your all-in-one concierge for Bali. eSIM, airport transfer, scooter delivery, and local experiences — all before you land.",
   keywords: [
@@ -24,10 +24,10 @@ export const metadata: Metadata = {
     "scooter rental",
     "airport transfer",
     "concierge",
-    "Balloon",
+    "Skyrol",
   ],
   openGraph: {
-    title: "Balloon — Bali in One Click",
+    title: "Skyrol — Bali in One Click",
     description:
       "Your all-in-one concierge for Bali. eSIM, airport transfer, scooter delivery, and local experiences.",
     type: "website",

@@ -9,7 +9,7 @@ type Pack = (typeof VALID_PACKS)[number];
 
 export async function generateMetadata({ params }: { params: Promise<{ pack: string }> }) {
   const { pack } = await params;
-  return { title: `Checkout — ${pack} — Balloon` };
+  return { title: `Checkout — ${pack} — Skyrol` };
 }
 
 export default async function CheckoutPage({

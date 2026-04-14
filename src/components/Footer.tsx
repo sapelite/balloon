@@ -1,3 +1,5 @@
+import Wordmark from "@/components/Wordmark";
+
 const footerLinks = {
   Product: [
     { label: "Services", href: "#services" },
@@ -25,16 +27,8 @@ export default function Footer() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-10">
           {/* Brand */}
           <div className="lg:col-span-2">
-            <div className="flex items-center gap-2.5 mb-4">
-              <div className="w-8 h-8 rounded-[9px] bg-linear-to-br from-coral to-coral-dark flex items-center justify-center">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="text-white">
-                  <path d="M12 2C8 2 5 5.5 5 9.5C5 14 12 19 12 19C12 19 19 14 19 9.5C19 5.5 16 2 12 2Z" fill="currentColor" opacity="0.9" />
-                  <circle cx="12" cy="9" r="2.5" fill="white" opacity="0.9" />
-                </svg>
-              </div>
-              <span className="text-lg font-bold text-white tracking-tight">
-                Ball<span className="text-coral">oo</span>n
-              </span>
+            <div className="flex items-center mb-4 text-white">
+              <Wordmark className="text-xl" tone="dark" />
             </div>
             <p className="text-[0.825rem] leading-relaxed max-w-[280px] mb-5">
               Your all-in-one concierge for Bali. Connecting travelers with trusted local services.
@@ -69,7 +63,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-12 pt-7 border-t border-white/[0.05] flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-[0.75rem] text-white/25">&copy; 2026 Balloon. All rights reserved.</p>
+          <p className="text-[0.75rem] text-white/25">&copy; 2026 Skyrol. All rights reserved.</p>
           <p className="text-[0.75rem] text-white/25">Made with care for Bali travelers.</p>
         </div>
       </div>

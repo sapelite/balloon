@@ -1,10 +1,30 @@
 // Seed script using dynamic import to handle Prisma v7 ESM client
+import "dotenv/config";
+import path from "path";
 async function main() {
   const { PrismaClient } = await import("../src/generated/prisma/client.ts");
-  const prisma = new PrismaClient();
+  const { PrismaLibSql } = await import("@prisma/adapter-libsql");
+  const raw = process.env.DATABASE_URL;
+  let url;
+  if (raw?.startsWith("file:")) {
+    const p = raw.slice(5);
+    url = path.isAbsolute(p) ? raw : `file:${path.join(process.cwd(), p.replace(/^\.\//, ""))}`;
+  } else if (raw) {
+    url = raw;
+  } else {
+    url = `file:${path.join(process.cwd(), "dev.db")}`;
+  }
+  const authToken = process.env.DATABASE_AUTH_TOKEN;
+  const adapter = new PrismaLibSql(authToken ? { url, authToken } : { url });
+  const prisma = new PrismaClient({ adapter });
 
   try {
     // Clean existing data
+    await prisma.clientBriefing.deleteMany();
+    await prisma.clientContent.deleteMany();
+    await prisma.clientInsight.deleteMany();
+    await prisma.clientMetric.deleteMany();
+    await prisma.businessClient.deleteMany();
     await prisma.review.deleteMany();
     await prisma.booking.deleteMany();
     await prisma.service.deleteMany();
@@ -16,10 +36,10 @@ async function main() {
     // ─── Demo User ────────────────────────────────────────
     const user = await prisma.user.create({
       data: {
-        email: "demo@balloon.app",
+        email: "demo@skyrol.app",
         name: "Alex Traveler",
         provider: "google",
-        referralCode: "BALLOON-ALEX",
+        referralCode: "SKYROL-ALEX",
       },
     });
 
@@ -45,7 +65,7 @@ async function main() {
           phone: "+62 812-3456-7890",
           isVerified: true,
           isFeatured: true,
-          discount: "Free full tank with Balloon",
+          discount: "Free full tank with Skyrol",
           services: {
             create: [
               { name: "Honda Scoopy 110cc", description: "Perfect for short rides around town. Automatic, easy to handle.", price: 5, unit: "per_day", image: "/services/scoopy.jpg" },
@@ -73,7 +93,7 @@ async function main() {
           features: JSON.stringify(["Budget friendly", "Monthly discounts", "Multiple pickup points"]),
           phone: "+62 813-5555-1234",
           isVerified: true,
-          discount: "-15% on weekly rentals via Balloon",
+          discount: "-15% on weekly rentals via Skyrol",
           services: {
             create: [
               { name: "Honda Beat 110cc", description: "Most affordable option. Great for daily commutes.", price: 3.5, unit: "per_day" },
@@ -129,7 +149,7 @@ async function main() {
           priceRange: "$$",
           features: JSON.stringify(["Rice terrace views", "Yoga shala", "Organic breakfast", "Eco-friendly"]),
           isVerified: true,
-          discount: "Complimentary yoga class with Balloon booking",
+          discount: "Complimentary yoga class with Skyrol booking",
           services: {
             create: [
               { name: "Bamboo Bungalow", description: "Eco bungalow with jungle views.", price: 45, unit: "per_day" },
@@ -295,7 +315,7 @@ async function main() {
           priceRange: "$",
           features: JSON.stringify(["Medical coverage", "Emergency evacuation", "COVID coverage"]),
           isVerified: true,
-          discount: "First month free via Balloon referral",
+          discount: "First month free via Skyrol referral",
           services: {
             create: [
               { name: "Nomad Insurance", description: "Medical + travel coverage. Billed monthly.", price: 42, unit: "per_month", currency: "USD" },
@@ -333,7 +353,7 @@ async function main() {
           icon: "FileText",
           excerpt: "Everything about getting your VoA at Ngurah Rai. Updated for 2026.",
           order: 1,
-          content: "# Visa on Arrival (VoA) — Bali 2026\n\n## Who Needs a VoA?\n\nCitizens of 90+ countries can obtain a Visa on Arrival. This includes:\n- **Europe**: All EU/EEA, UK, Switzerland\n- **Americas**: USA, Canada, Brazil, Mexico\n- **Asia-Pacific**: Australia, NZ, Japan, South Korea\n\n## Cost & Duration\n\n| Type | Cost | Duration |\n|------|------|----------|\n| Single Entry VoA | **IDR 500,000 (~$31)** | 30 days |\n| B211A (e-Visa) | **IDR 1,500,000 (~$93)** | 60 days |\n\n## Step-by-Step\n\n### Before You Fly\n1. Check passport — valid 6+ months\n2. Book return flight\n3. Apply e-VoA online at molina.imigrasi.go.id\n\n### At the Airport\n1. Follow VoA signs\n2. Pay fee (cash IDR/USD or card)\n3. Immigration — present passport + receipt\n4. Customs declaration\n5. Collect baggage\n\n## Pro Tips\n- Pay in IDR to avoid bad exchange rates\n- e-VoA queue is much faster\n- Don't overstay: IDR 1,000,000 per day fine",
+          content: "# Visa on Arrival — Bali 2026\n\n## TL;DR\n\n- **Most travelers**: pay **IDR 500,000** (~$31) for a 30-day VoA\n- **Staying longer?** Apply for a B211A online — 60 days, extendable\n- **Apply online before you fly** — the e-VoA queue is 3× faster\n\n## Do You Even Need One?\n\nCitizens of **90+ countries** qualify for Visa on Arrival, including:\n\n- **Europe**: all EU/EEA, UK, Switzerland\n- **Americas**: USA, Canada, Brazil, Mexico\n- **Asia-Pacific**: Australia, New Zealand, Japan, South Korea\n\nIf your country isn't on that list, you'll need a B211A visitor visa. Check **molina.imigrasi.go.id** — it tells you in 10 seconds.\n\n## What It Costs\n\n| Option | Price | Valid for | Extendable? |\n|--------|-------|-----------|-------------|\n| Single Entry VoA | **IDR 500,000** (~$31) | 30 days | Yes, once (+30 days) |\n| B211A (e-Visa) | **IDR 1,500,000** (~$93) | 60 days | Yes, up to 180 days |\n\n## Before You Fly\n\n1. Check your passport — it must be valid for **6+ months** past arrival\n2. Have a **return or onward flight** booked (they check)\n3. Apply for e-VoA online at **molina.imigrasi.go.id** — takes 10 minutes\n4. Save the approval PDF to your phone (offline)\n\n## At the Airport\n\n1. Follow the **VoA** signs after disembarking\n2. If you didn't do e-VoA: pay at the counter (IDR, USD, or card)\n3. Immigration desk — show passport + VoA receipt + return ticket\n4. Collect luggage, clear customs, you're in\n\n## Pro Tips\n\n- **Always pay in IDR**. USD at the counter uses a bad exchange rate\n- The **e-VoA queue** at Ngurah Rai is dramatically shorter than walk-up\n- **Don't overstay**. The fine is **IDR 1,000,000 per day** and you'll be detained if it's more than 60 days\n- Extending is easy: apply online 10 days before your VoA expires\n",
         },
         {
           title: "Bali Tourist Tax: What You Need to Know",
@@ -342,7 +362,7 @@ async function main() {
           icon: "Receipt",
           excerpt: "The IDR 150,000 tourist tax is mandatory. Here's how to pay before you arrive.",
           order: 2,
-          content: "# Bali Tourist Tax — 2026\n\n## What Is It?\nSince Feb 2024, all international visitors pay **IDR 150,000 (~$9.50)** for cultural preservation and infrastructure.\n\n## How to Pay\n\n### Online (Recommended)\n1. Visit lovebali.baliprov.go.id\n2. Fill details and travel dates\n3. Pay via card or e-wallet\n4. Save the QR code\n\n### At the Airport\n- Counters after immigration\n- Cash or cards accepted\n- Expect queues during peak hours\n\n## Pro Tips\n- Pay online 24h before departure\n- Screenshot QR code for poor WiFi\n- Tax is per entry (leave and return = pay again)",
+          content: "# Bali Tourist Tax — 2026\n\n## TL;DR\n\n- **IDR 150,000** (~$9.50) per entry\n- **Pay online** at lovebali.baliprov.go.id — 2 minutes\n- **Screenshot the QR code** before you fly\n\n## What Is It?\n\nSince February 2024, every international visitor pays a small levy that funds cultural preservation, waste management, and beach cleanup.\n\nIt's **IDR 150,000** (~$9.50) — roughly the price of a nice nasi goreng. You pay it **every time you enter** Bali, not once per year.\n\n## The Easy Way (Before You Fly)\n\n1. Go to **lovebali.baliprov.go.id**\n2. Enter your passport + travel dates\n3. Pay with any international card or e-wallet\n4. Save the **QR code** to your phone — this is your proof\n\nTotal time: about 2 minutes.\n\n## The Slow Way (At the Airport)\n\n- Counters are just after immigration, before baggage\n- Cash (IDR, USD) or card\n- Peak arrival hours: expect 15–30 min queues\n\n## Common Questions\n\n**Do kids pay?** Yes — same rate, any age.\n\n**What if I leave and come back?** Pay again. It's per entry.\n\n**Do I need to show the QR anywhere else?** Technically yes, at select attractions. In practice, rarely. Keep the screenshot anyway.\n\n## Pro Tips\n\n- Pay online **24h before departure** — the confirmation email can take a few hours\n- **Screenshot** the QR code. Airport WiFi is unreliable\n- The official site is **lovebali.baliprov.go.id** — ignore any other URL asking you to pay\n",
         },
         {
           title: "Emergency Contacts & Hospital Guide",
@@ -351,7 +371,7 @@ async function main() {
           icon: "Phone",
           excerpt: "All emergency numbers: hospitals, police, embassies, and what to do.",
           order: 3,
-          content: "# Emergency Contacts in Bali\n\n## Emergency Numbers\n| Service | Number |\n|---------|--------|\n| General Emergency | **112** |\n| Police | 110 |\n| Ambulance | 118/119 |\n| Tourist Police | +62 361 224 111 |\n\n## Best Hospitals\n\n### BIMC Hospital Kuta\n- Jl. Bypass Ngurah Rai No. 100X\n- +62 361 761 263\n- 24/7, English speaking\n- Best for tourists\n\n### Siloam Hospital Denpasar\n- Jl. Sunset Road No. 818\n- +62 361 779 900\n\n## What To Do\n### Medical Emergency\n1. Call 112 or go to BIMC\n2. Call insurance emergency line\n3. Keep passport accessible\n\n### Theft\n1. Call Tourist Police\n2. File police report\n3. Contact embassy if passport stolen\n4. Block credit cards",
+          content: "# Emergencies in Bali — Who to Call, Where to Go\n\n## TL;DR\n\n- **General emergency: 112** (works from any phone, any SIM)\n- **Best tourist hospital: BIMC Kuta** — English-speaking, 24/7\n- **Tourist Police: +62 361 224 111** — report theft, lost passport\n\n## Emergency Numbers\n\n| Service | Number |\n|---------|--------|\n| General Emergency | **112** |\n| Police | 110 |\n| Ambulance | 118 / 119 |\n| Tourist Police | +62 361 224 111 |\n| Fire | 113 |\n\nSave **112** before landing. It works without a SIM card and reaches all services.\n\n## Hospitals Worth Going To\n\n### BIMC Hospital Kuta — The tourist default\n\n- Jl. Bypass Ngurah Rai No. 100X, Kuta\n- **+62 361 761 263**\n- 24/7, English-speaking staff, international insurance accepted\n- Go here first if you're unsure\n\n### Siloam Hospital Denpasar — Bigger, more specialties\n\n- Jl. Sunset Road No. 818, Denpasar\n- **+62 361 779 900**\n- Cardiac, neuro, surgery — well-equipped\n\n### Ubud? Use BIMC Nusa Dua or Siloam — there's no major tourist hospital in Ubud itself.\n\n## What To Do — Medical\n\n1. Call **112** or take a **Grab** to BIMC Kuta\n2. Call your **insurance emergency line** before paying anything big\n3. Keep your **passport + insurance card** together and accessible\n4. Save receipts, reports, and prescriptions — insurance needs them\n\n## What To Do — Theft or Lost Passport\n\n1. Call **Tourist Police** (+62 361 224 111) — they speak English\n2. Go to the nearest station to **file a police report** (you need it for insurance + your embassy)\n3. Contact your **embassy in Jakarta** if your passport is stolen — emergency replacement takes 2–5 days\n4. **Block your cards** via your bank's app immediately\n\n## Scooter Accident?\n\n- Don't move someone with a head or neck injury — wait for ambulance\n- Take photos of both scooters and the scene\n- Exchange info; call your insurance\n- Most tourists go straight to **BIMC Kuta** — they deal with scooter injuries daily\n\n## Pro Tips\n\n- Write down your **insurance emergency line + policy number** and keep it offline in your wallet\n- Skyrol users have 24/7 concierge — message us first, we coordinate the rest\n- **Dengue fever** symptoms = high fever + body aches + rash. Go to hospital, don't wait it out\n",
         },
         {
           title: "IDR Currency Guide & Converter",
@@ -360,7 +380,7 @@ async function main() {
           icon: "DollarSign",
           excerpt: "Understand Rupiah, avoid money changer scams, know the real costs.",
           order: 4,
-          content: "# Indonesian Rupiah (IDR)\n\n## Quick Rates (2026)\n| Currency | ~IDR |\n|----------|------|\n| 1 USD | 15,800 |\n| 1 EUR | 17,200 |\n| 1 GBP | 20,000 |\n| 1 AUD | 10,400 |\n\n## Real Costs\n| Item | IDR | ~USD |\n|------|-----|------|\n| Nasi Goreng | 25,000 | $1.60 |\n| Restaurant meal | 80-150k | $5-10 |\n| Beer (shop) | 25,000 | $1.60 |\n| Grab (15 min) | 15-25k | $1-1.60 |\n| Massage (1h) | 100-200k | $6-13 |\n\n## Where to Exchange\n1. ATM (Bank Mandiri/BCA) — best rates\n2. Wise/Revolut card\n3. Authorized money changers only\n\n## Scams to Avoid\n- Quick counting tricks\n- \"No commission\" shops\n- Rates too good to be true",
+          content: "# Rupiah 101 — Money in Bali Without Getting Scammed\n\n## TL;DR\n\n- **Chop three zeros** off IDR to roughly get USD cents. 50,000 IDR ≈ $3\n- **Use ATMs** (Bank Mandiri, BCA, BNI) for the best rate\n- **Avoid street money changers** with rates that seem too good — they're the scam\n\n## Quick Mental Math\n\nDivide by roughly **16,000** to get USD:\n\n| Currency | ≈ IDR |\n|----------|-------|\n| 1 USD | 15,800 |\n| 1 EUR | 17,200 |\n| 1 GBP | 20,000 |\n| 1 AUD | 10,400 |\n\n**Shortcut**: drop three zeros, divide by 16. 80,000 IDR → 80 → 80 ÷ 16 = **$5**.\n\n## What Things Actually Cost\n\n| Item | IDR | ≈ USD |\n|------|-----|-------|\n| Nasi goreng at a warung | 25,000 | $1.60 |\n| Mid-range restaurant meal | 80–150k | $5–10 |\n| Western restaurant | 150–300k | $10–20 |\n| Local beer (at a shop) | 25,000 | $1.60 |\n| Beer at a beach club | 70–120k | $4–8 |\n| Grab ride (15 min) | 15–25k | $1–1.60 |\n| 1-hour Balinese massage | 100–200k | $6–13 |\n| Scooter rental (per day) | 50–100k | $3–6 |\n| Villa (mid-range, per night) | 700k–1.5M | $45–95 |\n\n## Where to Get Cash\n\n**1. ATMs at major banks** (best option)\n\n- Mandiri, BCA, BNI, CIMB\n- Look for ATMs **inside banks** — safer, no skimmers\n- Max withdrawal is usually 2.5M–3M IDR per transaction\n- Your home bank will charge ~$3–5; worth it for the rate\n\n**2. Wise or Revolut card**\n\n- Near-interbank rate, low fees\n- Works at all major ATMs\n- The best option for digital nomads\n\n**3. Authorized money changers**\n\n- Look for the **\"Authorized Money Changer\"** logo\n- PT Central Kuta is the most trusted chain\n- Count your cash **in front of them** before leaving\n\n## Scams to Know\n\n- **Quick-count trick** — they deal slowly then fast at the end to hide missing notes\n- **\"No commission\" shops** hide the fee in a worse rate\n- **Sticky-counter trick** — rubber mat palms one note per stack\n- **Rates 10% above market** are always a scam\n\n## Tipping\n\n- Restaurants: often a 10% service charge is already on the bill\n- If no service charge: **5–10%** is generous and appreciated\n- Scooter/villa delivery: **20–50k** tip\n- Spa: **10–20%** for good service\n",
         },
         {
           title: "Basic Bahasa Indonesia Lexicon",
@@ -369,7 +389,7 @@ async function main() {
           icon: "BookOpen",
           excerpt: "30 essential words and phrases to navigate Bali like a local.",
           order: 5,
-          content: "# Bahasa Indonesia — Essential Lexicon\n\n## Greetings\n| English | Bahasa |\n|---------|--------|\n| Hello | Halo |\n| Good morning | Selamat pagi |\n| Thank you | Terima kasih |\n| Sorry | Maaf |\n| Yes / No | Ya / Tidak |\n| Please | Tolong |\n\n## Essential Phrases\n| English | Bahasa |\n|---------|--------|\n| How much? | Berapa? |\n| Too expensive | Terlalu mahal |\n| Where is...? | Di mana...? |\n| I don't understand | Saya tidak mengerti |\n| Help! | Tolong! |\n| The bill please | Minta bon |\n\n## Food & Drink\n| English | Bahasa |\n|---------|--------|\n| Water | Air |\n| Rice | Nasi |\n| Spicy | Pedas |\n| Not spicy | Tidak pedas |\n| Delicious! | Enak! |\n\n## Pro Tips\n- \"Terima kasih\" earns huge smiles\n- \"Bisa kurang?\" = golden phrase for bargaining",
+          content: "# Bahasa Indonesia — 30 Phrases That Open Doors\n\n## TL;DR\n\n- **Terima kasih** = thank you. Use it constantly. Balinese light up when tourists say it\n- **Bisa kurang?** = \"Can you lower the price?\" — your golden bargaining phrase\n- **Enak!** = \"Delicious!\" — say it at every warung and you'll make a friend\n\n## Greetings\n\n| English | Bahasa | Say it like |\n|---------|--------|-------------|\n| Hello | Halo | HA-lo |\n| Good morning | Selamat pagi | s'LA-mat PA-gee |\n| Good afternoon | Selamat siang | s'LA-mat see-ANG |\n| Good evening | Selamat malam | s'LA-mat MA-lam |\n| Thank you | Terima kasih | t'REE-ma KA-see |\n| You're welcome | Sama sama | SA-ma SA-ma |\n| Sorry / Excuse me | Maaf | MA-af |\n| Yes / No | Ya / Tidak | ya / TEE-da |\n| Please | Tolong | TO-long |\n\n## Getting Around\n\n| English | Bahasa |\n|---------|--------|\n| How much? | Berapa? |\n| Too expensive | Terlalu mahal |\n| Can you lower it? | Bisa kurang? |\n| Where is...? | Di mana...? |\n| Left / Right | Kiri / Kanan |\n| Straight | Lurus |\n| Stop here | Berhenti di sini |\n| I don't understand | Saya tidak mengerti |\n| Help! | Tolong! |\n\n## At a Restaurant\n\n| English | Bahasa |\n|---------|--------|\n| The menu please | Minta menu |\n| The bill please | Minta bon |\n| Water | Air |\n| Rice | Nasi |\n| Chicken / Fish | Ayam / Ikan |\n| Vegetables | Sayur |\n| Spicy | Pedas |\n| Not spicy | Tidak pedas |\n| Delicious! | Enak! |\n\n## Numbers\n\n| # | Bahasa |\n|---|--------|\n| 1 | satu |\n| 2 | dua |\n| 5 | lima |\n| 10 | sepuluh |\n| 100 | seratus |\n| 1,000 | seribu |\n| 10,000 | sepuluh ribu |\n| 100,000 | seratus ribu |\n\n## Three Phrases That Punch Above Their Weight\n\n1. **Terima kasih banyak** — \"Thank you so much.\" Works magic at warungs, temples, anywhere\n2. **Bisa kurang?** — Markets expect it. Not using it = paying tourist tax\n3. **Tidak apa apa** — \"No worries / it's fine.\" The Balinese version of \"all good\"\n",
         },
         {
           title: "Top 10 First-Timer Tips for Bali",
@@ -378,7 +398,7 @@ async function main() {
           icon: "Lightbulb",
           excerpt: "Avoid rookie mistakes. Temple etiquette to traffic survival.",
           order: 6,
-          content: "# 10 Things Every First-Timer Should Know\n\n## 1. Traffic Is Chaos\nNo rules you'll recognize. Tips:\n- Rent scooter only if experienced\n- Hire private driver for long distances\n- Avoid school hours (7-8am, 1-2pm)\n\n## 2. Temple Etiquette\n- Wear sarong and sash\n- Remove shoes when asked\n- Don't stand higher than shrine\n\n## 3. Offerings Are Sacred\nNever step on canang sari (flower baskets on sidewalks).\n\n## 4. Don't Drink Tap Water\nUse bottled for everything including brushing teeth.\n\n## 5. Negotiate at Markets\nStart at 30%, work up to 50-60%.\n\n## 6. Monkeys Are Not Friends\n- Remove sunglasses and jewelry\n- Don't show food\n- Don't fight if they grab something\n\n## 7. Explore Beyond Tourist Zones\nSidemen, Munduk, Amed, Nusa Penida.\n\n## 8. WiFi Is Good\n15-50 Mbps in most cafes. Get eSIM as backup.\n\n## 9. Sunscreen + Mosquito Spray\nSPF 50 minimum. Dengue is real.\n\n## 10. Respect the Culture\nNyepi = island shuts down 24h. Smile > complaint.",
+          content: "# 10 Things First-Timers Always Wish They Knew\n\n## TL;DR\n\n- **Don't rent a scooter if you've never ridden one.** Hire a driver\n- **Never step on canang sari** — the flower offerings on sidewalks\n- **Bring a sarong** or buy one at the first temple — you'll reuse it everywhere\n\n## 1. Traffic Is Organized Chaos\n\nThere are rules, just not the ones you know. Scooters weave, cars honk to say \"I'm here,\" and intersections are a negotiation.\n\n- **Never your first time riding** — rent in your home country, not here\n- **Hire a private driver** for trips over 30 minutes. It's ~$40–55 for a full day\n- **Avoid school hours**: 7–8am and 1–2pm are bumper-to-bumper\n- **Always wear a helmet** — police checks target tourists and fines add up fast\n\n## 2. Temple Etiquette Isn't Optional\n\nTemples are active places of worship, not tourist sites.\n\n- **Sarong + sash** required. Most temples rent them for 20k IDR\n- **Shoulders and knees covered**\n- **Don't stand higher than a shrine** or a priest\n- **Menstruating?** By tradition, women don't enter the inner sanctum. Signs will say so\n\n## 3. The Flower Offerings Are Sacred\n\nThose little palm-leaf baskets with flowers, rice, and incense on every doorstep? They're **canang sari** — daily offerings to the spirits.\n\n**Never step on them.** Walk around. Even if it's on the sidewalk and you're in a hurry.\n\n## 4. Don't Drink Tap Water\n\n- **Use bottled water** for drinking and **brushing teeth**\n- Ice in restaurants is usually fine (it's factory-made)\n- Salads and cut fruit at street stalls: higher risk\n- **Bali belly** is real. Pack Imodium and rehydration salts\n\n## 5. Bargain at Markets, Not in Shops\n\n- **Markets + beachfront**: start at **30%** of asking, settle around 50–60%\n- **Shops with price tags**: the price is the price\n- **Smile while you bargain.** Aggression kills the deal\n- The magic phrase: **\"Bisa kurang?\"** (can you lower it?)\n\n## 6. Monkeys Are Thieves, Not Pets\n\nAt Ubud Monkey Forest or Uluwatu:\n\n- **Remove sunglasses, hats, earrings** before entering\n- **Don't carry food or plastic bags** — they're a magnet\n- **Don't fight** if one grabs your stuff. Staff will trade a banana for it\n- **Don't make eye contact** with the big males\n\n## 7. The Best Bali Is Outside the Main Zones\n\nCanggu, Seminyak, Ubud are great, but they're crowded. Rent a scooter or hire a driver and explore:\n\n- **Sidemen** — rice terraces without the tour buses\n- **Munduk** — waterfalls and coffee plantations\n- **Amed** — black-sand beaches and snorkeling\n- **Nusa Penida** — cliffs like a postcard, 45 min by ferry\n\n## 8. WiFi Is Good, But Bring an eSIM\n\n- Most cafes and villas: **15–50 Mbps**\n- Power cuts happen — eSIM = instant backup\n- **Telkomsel** has the best coverage across the island\n\n## 9. The Sun and the Mosquitos Are Both Trying to Kill You\n\n- **SPF 50 minimum.** The equatorial sun burns faster than you think\n- **Mosquito repellent** at dusk and dawn\n- **Dengue fever is real** (and on the rise). No vaccine, just prevention\n\n## 10. When in Doubt, Smile\n\nBalinese culture values calm and warmth. Frustration gets you nothing; a smile and patience get you everything.\n\n- **Nyepi** (Day of Silence, March) = the entire island shuts down for 24h. No flights, no beach, no WiFi in some places. Plan around it\n- If something goes wrong: **smile, breathe, ask gently.** It works\n\n## Bonus: What to Pack\n\n- Sarong (or buy one for $3 at your first temple)\n- Reef-safe sunscreen\n- Waterproof phone pouch\n- Small backpack for day trips\n- Imodium + rehydration salts\n- Cash in small bills (50k, 20k) for warungs and tips\n",
         },
       ],
     });
@@ -408,8 +428,93 @@ async function main() {
       ],
     });
 
+    // ─── Business Client (demo for /business/dashboard) ───
+    const bizUser = await prisma.user.create({
+      data: {
+        email: "villa@sunsetcanggu.com",
+        name: "Made Wirawan",
+        provider: "email",
+      },
+    });
+
+    const client = await prisma.businessClient.create({
+      data: {
+        userId: bizUser.id,
+        businessName: "Sunset Villa Canggu",
+        industry: "villa",
+        plan: "growth",
+        instagramHandle: "@sunsetvillacanggu",
+        tiktokHandle: "@sunsetvillabali",
+        websiteUrl: "https://sunsetvillacanggu.com",
+      },
+    });
+
+    await prisma.clientBriefing.create({
+      data: {
+        clientId: client.id,
+        summary: "Strong week — Reels are carrying reach.",
+        body: "Instagram reach +42% vs last week, driven by 2 Reels breaking 100k views. TikTok posting cadence slipped (1 post vs 3 planned). Website conversion stable at 3.4%. Two new direct bookings came from @wanderbali reshare.",
+        nextAction: "Post the 2 backlog TikToks today. Reply to the 14 new comments on Reel #sunsetsession.",
+        healthScore: 78,
+        forDate: new Date(),
+      },
+    });
+
+    const WEEKS = ["W1", "W2", "W3", "W4"];
+    const metricRows = [
+      { platform: "instagram", metricKey: "views", values: [420000, 510000, 680000, 940000] },
+      { platform: "instagram", metricKey: "followers", values: [18200, 19400, 21100, 24300] },
+      { platform: "instagram", metricKey: "engagement", values: [5.1, 5.8, 6.4, 7.2] },
+      { platform: "instagram", metricKey: "reach", values: [280000, 340000, 460000, 620000] },
+      { platform: "tiktok", metricKey: "views", values: [180000, 240000, 310000, 420000] },
+      { platform: "tiktok", metricKey: "followers", values: [4200, 5100, 6400, 7800] },
+      { platform: "tiktok", metricKey: "engagement", values: [4.2, 5.0, 5.8, 6.1] },
+      { platform: "website", metricKey: "visitors", values: [2100, 2450, 2890, 3420] },
+      { platform: "website", metricKey: "conversion", values: [2.5, 2.9, 3.1, 3.4] },
+      { platform: "website", metricKey: "bookings", values: [11, 14, 17, 23] },
+    ];
+
+    for (const row of metricRows) {
+      for (let i = 0; i < row.values.length; i++) {
+        const current = row.values[i];
+        const prev = i > 0 ? row.values[i - 1] : null;
+        const delta = prev ? ((current - prev) / prev) * 100 : null;
+        await prisma.clientMetric.create({
+          data: {
+            clientId: client.id,
+            platform: row.platform,
+            metricKey: row.metricKey,
+            value: current,
+            delta,
+            periodLabel: WEEKS[i],
+            recordedAt: new Date(Date.now() - (3 - i) * 7 * 24 * 60 * 60 * 1000),
+          },
+        });
+      }
+    }
+
+    await prisma.clientInsight.createMany({
+      data: [
+        { clientId: client.id, title: "Shift to 70% Reels", body: "Your Reels average 3.1x the reach of static posts. Reallocate 2 of this week's 3 carousels to Reels.", priority: "high", category: "content", status: "open" },
+        { clientId: client.id, title: "TikTok cadence dropped", body: "Posted 1x last week vs 3x planned. Momentum cools fast on TikTok — batch-record 5 clips this weekend.", priority: "high", category: "ops", status: "open" },
+        { clientId: client.id, title: "Reply to @wanderbali collab DM", body: "They reshared you organically and have 68k followers. Warm lead — reply today with a barter proposal (2-night stay for a content piece).", priority: "high", category: "growth", status: "open" },
+        { clientId: client.id, title: "Add booking CTA to IG bio", body: "Your bio link goes to homepage. Replace with /book — conversion tests show +18% bookings when CTA is direct.", priority: "normal", category: "conversion", status: "open" },
+        { clientId: client.id, title: "Sunset Reel format is winning", body: "All 3 top posts this month share the golden-hour drone intro. Double down — you have 8 untapped sunset clips in the drive.", priority: "normal", category: "content", status: "open" },
+      ],
+    });
+
+    await prisma.clientContent.createMany({
+      data: [
+        { clientId: client.id, platform: "instagram", caption: "Sunset session from the rooftop", views: 184000, likes: 12400, comments: 284, shares: 1820, publishedAt: new Date(Date.now() - 5 * 24 * 3600 * 1000) },
+        { clientId: client.id, platform: "instagram", caption: "Morning yoga by the pool", views: 96000, likes: 7100, comments: 142, shares: 510, publishedAt: new Date(Date.now() - 10 * 24 * 3600 * 1000) },
+        { clientId: client.id, platform: "tiktok", caption: "POV: waking up in Canggu", views: 312000, likes: 24800, comments: 890, shares: 4200, publishedAt: new Date(Date.now() - 3 * 24 * 3600 * 1000) },
+        { clientId: client.id, platform: "tiktok", caption: "Villa tour in 30 seconds", views: 148000, likes: 11200, comments: 412, shares: 1650, publishedAt: new Date(Date.now() - 8 * 24 * 3600 * 1000) },
+        { clientId: client.id, platform: "instagram", caption: "Rice terrace picnic for two", views: 54000, likes: 3800, comments: 89, shares: 240, publishedAt: new Date(Date.now() - 14 * 24 * 3600 * 1000) },
+      ],
+    });
+
     console.log("Seed completed!");
-    console.log(`Created: 1 user, ${partners.length} partners, 6 guides, 10 reviews, 3 bookings, 4 waitlist`);
+    console.log(`Created: 2 users, ${partners.length} partners, 6 guides, 10 reviews, 3 bookings, 4 waitlist, 1 business client`);
   } finally {
     await prisma.$disconnect();
   }

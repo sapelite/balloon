@@ -90,7 +90,7 @@ export async function POST(req: NextRequest) {
       if (existing) {
         finalUserId = existing.id;
       } else {
-        const referralCode = `BALLOON-${(nameFromBody || emailFromBody!.split("@")[0])
+        const referralCode = `SKYROL-${(nameFromBody || emailFromBody!.split("@")[0])
           .toUpperCase()
           .replace(/[^A-Z0-9]/g, "")
           .slice(0, 6)}-${Math.random().toString(36).slice(2, 6).toUpperCase()}`;
@@ -132,7 +132,7 @@ export async function POST(req: NextRequest) {
     await setPackCookie(pack);
     const store = await cookies();
     const exp = Date.now() + 1000 * 60 * 60 * 24 * 365;
-    store.set("balloon_purchased", signPurchase(pack, exp), {
+    store.set("skyrol_purchased", signPurchase(pack, exp), {
       httpOnly: true,
       sameSite: "lax",
       path: "/",

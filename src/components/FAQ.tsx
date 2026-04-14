@@ -5,14 +5,14 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Plus, Minus } from "lucide-react";
 
 const faqs = [
-  { q: "When will Balloon be available?", a: "We're launching in Q3 2026. Join the waitlist for early access pricing and be the first to try it." },
+  { q: "When will Skyrol be available?", a: "We're launching in Q3 2026. Join the waitlist for early access pricing and be the first to try it." },
   { q: "How does the eSIM work?", a: "After booking, you receive a QR code via email. Scan it before boarding — your data plan activates automatically when your plane lands. No physical SIM needed." },
   { q: "Is the airport transfer a shared shuttle?", a: "No. Every transfer is a private car with a driver waiting at arrivals with your name. Direct ride to your accommodation." },
   { q: "Can I book just a scooter without the full package?", a: "Absolutely. Every service is available à la carte. The Arrival Essentials bundle simply offers a better price for the three most-requested services." },
   { q: "What scooter models are available?", a: "Honda Scoopy, Yamaha NMAX, and Honda PCX. All include helmets, insurance, phone mount, and roadside assistance." },
   { q: "How do the partner deals (Bali Pass) work?", a: "Your Bali Pass generates a unique QR code. Show it at partner venues — beach clubs, spas, restaurants — for instant 10-15% discounts and queue skip." },
   { q: "Is there customer support?", a: "Yes. 24/7 chat concierge in English, French, and Bahasa Indonesia. Plus a one-tap SOS button for emergencies." },
-  { q: "How do I become a partner?", a: "Free listing for the first 6 months. After that, a simple commission model — you only pay when Balloon brings you a customer." },
+  { q: "How do I become a partner?", a: "Free listing for the first 6 months. After that, a simple commission model — you only pay when Skyrol brings you a customer." },
 ];
 
 function FAQItem({ q, a, index }: { q: string; a: string; index: number }) {

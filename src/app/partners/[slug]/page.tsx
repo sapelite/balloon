@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const partner = await db.partner.findUnique({ where: { slug } });
   if (!partner) return { title: "Partner Not Found" };
   return {
-    title: `${partner.name} — Balloon Partner`,
+    title: `${partner.name} — Skyrol Partner`,
     description: partner.description,
   };
 }
@@ -135,7 +135,7 @@ export default async function PartnerPage({ params }: Props) {
                 </a>
               )}
               <button className="flex items-center gap-2 px-4 py-2 rounded-xl bg-coral/10 text-coral text-sm font-semibold hover:bg-coral/20 transition-colors">
-                <MessageCircle className="w-4 h-4" /> Contact via Balloon
+                <MessageCircle className="w-4 h-4" /> Contact via Skyrol
               </button>
             </div>
           </div>
@@ -210,9 +210,9 @@ export default async function PartnerPage({ params }: Props) {
           <div className="space-y-6">
             {/* Book CTA */}
             <div className="bg-linear-to-br from-foreground to-[#2A2A4E] rounded-2xl p-6 text-white">
-              <h3 className="font-bold text-lg mb-2">Book via Balloon</h3>
+              <h3 className="font-bold text-lg mb-2">Book via Skyrol</h3>
               <p className="text-white/60 text-sm mb-4">
-                Get the best price and exclusive deals when you book through Balloon.
+                Get the best price and exclusive deals when you book through Skyrol.
               </p>
               <Link href="/auth" className="block w-full text-center py-3 rounded-xl bg-coral text-white font-semibold text-sm hover:bg-coral-dark transition-colors">
                 Sign In to Book

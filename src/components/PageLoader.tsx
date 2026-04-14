@@ -2,24 +2,32 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import Wordmark from "@/components/Wordmark";
 
-const SESSION_KEY = "balloon_loaded";
-const DURATION_MS = 2100;
+const SESSION_KEY = "skyrol_loaded";
+const DURATION_MS = 1400;
 
 export default function PageLoader() {
   const [mounted, setMounted] = useState(false);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
+    const onPageShow = (e: PageTransitionEvent) => {
+      if (e.persisted) window.location.reload();
+    };
+    window.addEventListener("pageshow", onPageShow);
     setMounted(true);
     // Only show on the first paint of a tab session — avoids replaying on
     // client-side navigations or quick refreshes.
+    let seen = false;
     try {
-      const seen = sessionStorage.getItem(SESSION_KEY);
-      if (seen) return;
-      sessionStorage.setItem(SESSION_KEY, "1");
+      seen = !!sessionStorage.getItem(SESSION_KEY);
+      if (!seen) sessionStorage.setItem(SESSION_KEY, "1");
     } catch {
       /* sessionStorage blocked — show loader anyway */
+    }
+    if (seen) {
+      return () => window.removeEventListener("pageshow", onPageShow);
     }
     setVisible(true);
     // Prevent body scroll while loader is up
@@ -32,6 +40,7 @@ export default function PageLoader() {
     return () => {
       clearTimeout(t);
       document.body.style.overflow = prevOverflow;
+      window.removeEventListener("pageshow", onPageShow);
     };
   }, []);
 
@@ -61,7 +70,7 @@ export default function PageLoader() {
             animate={{ opacity: 0.45, scale: 1 }}
             transition={{ duration: 1.2, ease: "easeOut" }}
             className="absolute top-1/4 left-1/4 w-[28rem] h-[28rem] rounded-full blur-[120px]"
-            style={{ background: "#ff7a7a" }}
+            style={{ background: "#ff385c" }}
           />
           <motion.div
             initial={{ opacity: 0, scale: 0.7 }}
@@ -101,11 +110,11 @@ export default function PageLoader() {
                 animate={{ scale: [0.95, 1.15, 1], opacity: [0.25, 0.5, 0.35] }}
                 transition={{ duration: 1.6, delay: 0.4, ease: "easeInOut" }}
                 className="absolute inset-0 rounded-[22px] blur-xl"
-                style={{ background: "#ff7a7a" }}
+                style={{ background: "#ff385c" }}
               />
               <div className="relative w-20 h-20 rounded-[22px] flex items-center justify-center"
                 style={{
-                  background: "linear-gradient(135deg, #ff7a7a 0%, #e85858 100%)",
+                  background: "linear-gradient(135deg, #ff385c 0%, #e00b41 100%)",
                   boxShadow: "0 10px 40px -10px rgba(255, 122, 122, 0.6)",
                 }}>
                 <motion.svg
@@ -146,7 +155,7 @@ export default function PageLoader() {
                         transition: { delay: 1.25, duration: 0.3, type: "spring" },
                       },
                     }}
-                    style={{ transformOrigin: "12px 9px", fill: "#ff7a7a" }}
+                    style={{ transformOrigin: "12px 9px", fill: "#ff385c" }}
                   />
                   {/* Small string */}
                   <motion.path
@@ -187,11 +196,9 @@ export default function PageLoader() {
                 initial={{ y: 30, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.7, delay: 0.9, ease: [0.22, 1, 0.36, 1] }}
-                className="text-3xl font-bold tracking-tight text-white"
+                className="text-white"
               >
-                Ball
-                <span style={{ color: "#ff7a7a" }}>oo</span>
-                n
+                <Wordmark className="text-3xl" tone="dark" />
               </motion.div>
             </div>
 
@@ -235,7 +242,7 @@ export default function PageLoader() {
                 transition={{ duration: 1.6, delay: 0.5, ease: [0.65, 0, 0.35, 1] }}
                 className="absolute inset-y-0 left-0"
                 style={{
-                  background: "linear-gradient(90deg, #ff7a7a, #f4c86a, #4fb4d8)",
+                  background: "linear-gradient(90deg, #ff385c, #f4c86a, #4fb4d8)",
                 }}
               />
             </motion.div>

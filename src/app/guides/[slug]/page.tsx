@@ -13,7 +13,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const guide = await db.guide.findUnique({ where: { slug } });
   if (!guide) return { title: "Guide Not Found" };
   return {
-    title: `${guide.title} — Balloon`,
+    title: `${guide.title} — Skyrol`,
     description: guide.excerpt,
   };
 }
@@ -160,7 +160,7 @@ export default async function GuidePage({ params }: Props) {
           <p className="text-lg text-foreground/50">{guide.excerpt}</p>
         </div>
 
-        <div className="prose-balloon">
+        <div className="prose-skyrol">
           {renderMarkdown(guide.content)}
         </div>
       </article>

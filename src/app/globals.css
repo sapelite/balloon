@@ -1,24 +1,36 @@
 @import "tailwindcss";
 
 :root {
-  --background: #FAFAF9;
-  --foreground: #18181B;
-  --coral: #FF6363;
-  --coral-dark: #E54D4D;
-  --coral-light: #FFF1F1;
-  --lagoon: #06B6D4;
-  --lagoon-dark: #0891B2;
-  --lagoon-light: #ECFEFF;
-  --sand: #F5F5F4;
-  --sand-dark: #E7E5E4;
-  --gold: #EAB308;
-  --emerald: #10B981;
+  /* Airbnb-inspired tokens */
+  --background: #FFFFFF;
+  --foreground: #222222;
+  --muted: #6A6A6A;
+
+  /* Rausch Red (brand accent) */
+  --coral: #FF385C;
+  --coral-dark: #E00B41;
+  --coral-light: #FFF0F3;
+
+  /* Premium tiers remapped to old lagoon/gold slots */
+  --lagoon: #460479;        /* Luxe purple */
+  --lagoon-dark: #2D0350;
+  --lagoon-light: #F2EAF8;
+  --gold: #92174D;          /* Plus magenta */
+
+  /* Success (muted green, used sparingly) */
+  --emerald: #008A05;
+
+  /* Surfaces */
+  --sand: #F7F7F7;
+  --sand-dark: #EBEBEB;
   --card: #FFFFFF;
+  --border: #DDDDDD;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
   --color-coral: var(--coral);
   --color-coral-dark: var(--coral-dark);
   --color-coral-light: var(--coral-light);
@@ -30,8 +42,19 @@
   --color-gold: var(--gold);
   --color-emerald: var(--emerald);
   --color-card: var(--card);
+  --color-border: var(--border);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  /* Airbnb three-layer shadow */
+  --shadow-card: 0 0 0 1px rgba(0,0,0,0.02), 0 2px 6px rgba(0,0,0,0.04), 0 4px 8px rgba(0,0,0,0.10);
+  --shadow-hover: 0 4px 12px rgba(0,0,0,0.08);
+
+  /* Radius scale */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 32px;
 }
 
 * {
@@ -41,9 +64,14 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+  font-family: var(--font-sans), "Airbnb Cereal VF", Circular, -apple-system, system-ui, Roboto, "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  letter-spacing: -0.01em;
+}
+
+h1, h2, h3 {
+  letter-spacing: -0.02em;
 }
 
 html {
@@ -51,50 +79,46 @@ html {
   scroll-padding-top: 5rem;
 }
 
-/* Selection color */
 ::selection {
-  background: rgba(255, 99, 99, 0.15);
+  background: rgba(255, 56, 92, 0.15);
   color: var(--foreground);
 }
 
-/* Scrollbar */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #D6D3D1; border-radius: 100px; }
+::-webkit-scrollbar-thumb { background: #DDDDDD; border-radius: 100px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--coral); }
 
 /* ─── Utilities ───────────────────────────────────────── */
 
 .gradient-text {
-  background: linear-gradient(135deg, var(--coral) 0%, #FF8A65 50%, var(--lagoon) 100%);
+  background: linear-gradient(135deg, var(--coral) 0%, #FF5A7D 50%, var(--lagoon) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .glass {
-  background: rgba(255, 255, 255, 0.72);
+  background: rgba(255, 255, 255, 0.82);
   backdrop-filter: blur(24px) saturate(180%);
   -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
 }
 
 .glass-dark {
-  background: rgba(24, 24, 27, 0.72);
+  background: rgba(34, 34, 34, 0.82);
   backdrop-filter: blur(24px) saturate(180%);
   -webkit-backdrop-filter: blur(24px) saturate(180%);
 }
 
-/* Mesh gradient background */
 .mesh-gradient {
   background:
-    radial-gradient(at 27% 37%, hsla(0, 100%, 85%, 0.12) 0px, transparent 50%),
-    radial-gradient(at 97% 21%, hsla(187, 80%, 85%, 0.1) 0px, transparent 50%),
-    radial-gradient(at 52% 99%, hsla(36, 90%, 85%, 0.08) 0px, transparent 50%),
-    radial-gradient(at 10% 29%, hsla(256, 70%, 90%, 0.06) 0px, transparent 50%),
+    radial-gradient(at 27% 37%, rgba(255, 56, 92, 0.06) 0px, transparent 50%),
+    radial-gradient(at 97% 21%, rgba(70, 4, 121, 0.05) 0px, transparent 50%),
+    radial-gradient(at 52% 99%, rgba(255, 56, 92, 0.04) 0px, transparent 50%),
     var(--background);
 }
 
-/* Card shine effect on hover */
 .card-shine {
   position: relative;
   overflow: hidden;
@@ -114,7 +138,6 @@ html {
   left: 125%;
 }
 
-/* Animated gradient border */
 @property --angle {
   syntax: "<angle>";
   initial-value: 0deg;
@@ -124,11 +147,10 @@ html {
   to { --angle: 360deg; }
 }
 .animated-border {
-  background: conic-gradient(from var(--angle), var(--coral), var(--lagoon), var(--gold), var(--coral));
+  background: conic-gradient(from var(--angle), var(--coral), var(--lagoon), var(--coral-dark), var(--coral));
   animation: spin-border 4s linear infinite;
 }
 
-/* Float */
 @keyframes float {
   0%, 100% { transform: translateY(0px) rotate(0deg); }
   33% { transform: translateY(-8px) rotate(1deg); }
@@ -138,7 +160,6 @@ html {
   animation: float 5s ease-in-out infinite;
 }
 
-/* Subtle pulse */
 @keyframes subtle-pulse {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.7; }
@@ -147,20 +168,25 @@ html {
   animation: subtle-pulse 2s ease-in-out infinite;
 }
 
-/* Glow */
 .glow-coral {
-  box-shadow: 0 0 24px -4px rgba(255, 99, 99, 0.35);
+  box-shadow: 0 0 24px -4px rgba(255, 56, 92, 0.25);
 }
 .glow-coral-hover:hover {
-  box-shadow: 0 0 32px -4px rgba(255, 99, 99, 0.5);
+  box-shadow: var(--shadow-hover);
 }
 
-/* Text shadow for headings */
 .text-glow {
-  text-shadow: 0 0 80px rgba(255, 99, 99, 0.15);
+  text-shadow: 0 0 80px rgba(255, 56, 92, 0.12);
 }
 
-/* Noise texture overlay */
+/* Airbnb card shadow utility */
+.shadow-airbnb {
+  box-shadow: var(--shadow-card);
+}
+.shadow-airbnb-hover:hover {
+  box-shadow: var(--shadow-hover);
+}
+
 .noise::after {
   content: '';
   position: absolute;
@@ -170,7 +196,6 @@ html {
   z-index: 0;
 }
 
-/* Focus ring */
 *:focus-visible {
   outline: 2px solid var(--coral);
   outline-offset: 2px;

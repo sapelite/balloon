@@ -61,7 +61,7 @@ const OFFERS = [
   },
   {
     icon: Network,
-    title: "Access to the Balloon network",
+    title: "Access to the Skyrol network",
     desc: "Direct exposure to our expat & tourist audience. More reach, zero spam.",
     color: "text-lagoon",
     bg: "bg-lagoon/10",
@@ -85,7 +85,7 @@ const STATS = [
 const CHART = [28, 34, 31, 42, 48, 45, 58, 64, 71, 68, 82, 96];
 const MAX = Math.max(...CHART);
 
-export default function EntrepriseClient() {
+export default function BusinessClient() {
   const dashRef = useRef(null);
   const inView = useInView(dashRef, { once: true, margin: "-100px" });
 
@@ -103,7 +103,7 @@ export default function EntrepriseClient() {
             animate={{ opacity: 1, y: 0 }}
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-coral/10 text-coral text-[0.75rem] font-semibold uppercase tracking-[0.15em] mb-5"
           >
-            <Sparkles className="w-3 h-3" /> Balloon Business
+            <Sparkles className="w-3 h-3" /> Skyrol Business
           </motion.span>
           <motion.h1
             initial={{ opacity: 0, y: 16 }}
@@ -113,7 +113,7 @@ export default function EntrepriseClient() {
           >
             Boost your marketing with{" "}
             <span className="bg-linear-to-r from-coral via-gold to-coral-dark bg-clip-text text-transparent">
-              Balloon Business
+              Skyrol Business
             </span>
           </motion.h1>
           <motion.p
@@ -123,7 +123,7 @@ export default function EntrepriseClient() {
             className="text-[1.05rem] text-foreground/45 max-w-xl mx-auto leading-relaxed font-[350]"
           >
             We handle the full digital stack for Bali businesses — content, social, strategy, CRM.
-            And we plug you into the Balloon network: thousands of expats and tourists already on the ground.
+            And we plug you into the Skyrol network: thousands of expats and tourists already on the ground.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 16 }}
@@ -132,24 +132,37 @@ export default function EntrepriseClient() {
             className="mt-8 flex flex-wrap gap-3 justify-center"
           >
             <a
-              href="#contact"
+              href="#pricing"
               className="group px-6 py-3 rounded-full bg-coral text-white font-semibold text-sm shadow-lg shadow-coral/25 hover:shadow-coral/40 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center gap-1.5"
             >
               Talk to us
               <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
             </a>
             <a
-              href="#offer"
+              href="#features"
               className="px-6 py-3 rounded-full bg-foreground/[0.04] hover:bg-foreground/[0.07] text-foreground font-semibold text-sm transition-colors"
             >
               See the offer
+            </a>
+            <a
+              href="/business/demo"
+              className="px-6 py-3 rounded-full bg-foreground text-white font-semibold text-sm hover:bg-foreground/90 transition-colors flex items-center gap-1.5"
+            >
+              Live demo
+              <ArrowRight className="w-4 h-4" />
+            </a>
+            <a
+              href="/business/dashboard"
+              className="px-6 py-3 rounded-full border border-foreground/10 hover:bg-foreground/[0.04] text-foreground font-semibold text-sm transition-colors"
+            >
+              Client login
             </a>
           </motion.div>
         </div>
       </section>
 
       {/* Mock dashboard */}
-      <section ref={dashRef} className="pb-24 lg:pb-32">
+      <section id="results" ref={dashRef} className="pb-24 lg:pb-32">
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -232,7 +245,7 @@ export default function EntrepriseClient() {
       </section>
 
       {/* Offer grid */}
-      <section id="offer" className="py-24 lg:py-32 bg-card">
+      <section id="features" className="py-24 lg:py-32 bg-card">
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
           <SectionTitle
             tag="What we build for you"
@@ -261,7 +274,7 @@ export default function EntrepriseClient() {
         </div>
       </section>
 
-      {/* Synergy with Balloon */}
+      {/* Synergy with Skyrol */}
       <section className="py-24 lg:py-32">
         <div className="max-w-5xl mx-auto px-6 lg:px-10">
           <motion.div
@@ -278,15 +291,15 @@ export default function EntrepriseClient() {
                   Combined offer
                 </span>
                 <h3 className="text-[1.75rem] lg:text-[2.25rem] font-bold tracking-[-0.02em] leading-tight mb-4">
-                  Become a Balloon partner — get 1 month of Balloon Business on us.
+                  Become a Skyrol partner — get 1 month of Skyrol Business on us.
                 </h3>
                 <p className="text-white/65 leading-relaxed mb-5 max-w-xl">
-                  Your restaurant, villa or spa joins the Balloon network? We throw in a full month
-                  of Balloon Business. Content, CRM, strategy — we prove the value, you decide next.
+                  Your restaurant, villa or spa joins the Skyrol network? We throw in a full month
+                  of Skyrol Business. Content, CRM, strategy — we prove the value, you decide next.
                 </p>
                 <ul className="space-y-2 text-[0.9rem] text-white/75">
                   <li className="flex items-center gap-2">
-                    <Check className="w-4 h-4 text-emerald shrink-0" /> Exposure to the Balloon audience (expats + tourists)
+                    <Check className="w-4 h-4 text-emerald shrink-0" /> Exposure to the Skyrol audience (expats + tourists)
                   </li>
                   <li className="flex items-center gap-2">
                     <Check className="w-4 h-4 text-emerald shrink-0" /> Social & site stats dashboard
@@ -297,7 +310,7 @@ export default function EntrepriseClient() {
                 </ul>
               </div>
               <Link
-                href="#contact"
+                href="#pricing"
                 className="shrink-0 px-6 py-3.5 rounded-full bg-coral text-white font-semibold text-sm shadow-lg shadow-coral/25 hover:shadow-coral/40 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center gap-1.5 w-fit"
               >
                 Claim the offer
@@ -309,7 +322,7 @@ export default function EntrepriseClient() {
       </section>
 
       {/* Contact */}
-      <section id="contact" className="py-24 lg:py-32 bg-card">
+      <section id="pricing" className="py-24 lg:py-32 bg-card">
         <div className="max-w-3xl mx-auto px-6 lg:px-10 text-center">
           <span className="inline-block text-[0.75rem] font-semibold text-coral uppercase tracking-[0.15em] mb-3">
             Ready to level up?
@@ -323,7 +336,7 @@ export default function EntrepriseClient() {
           </p>
           <div className="flex flex-wrap justify-center gap-3">
             <a
-              href="https://wa.me/33600000000?text=Hi%20Balloon%20Business%20%E2%80%94%20I%27d%20like%20to%20know%20more"
+              href="https://wa.me/33600000000?text=Hi%20Skyrol%20Business%20%E2%80%94%20I%27d%20like%20to%20know%20more"
               target="_blank"
               rel="noopener noreferrer"
               className="group px-6 py-3.5 rounded-full bg-[#25D366] text-white font-semibold text-sm shadow-lg shadow-[#25D366]/25 hover:shadow-[#25D366]/40 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center gap-2"
@@ -334,11 +347,11 @@ export default function EntrepriseClient() {
               WhatsApp
             </a>
             <a
-              href="mailto:business@balloon.bali?subject=Balloon%20Business%20%E2%80%94%20info%20request"
+              href="mailto:business@skyrol.bali?subject=Skyrol%20Business%20%E2%80%94%20info%20request"
               className="px-6 py-3.5 rounded-full bg-foreground text-white font-semibold text-sm hover:bg-foreground/90 transition-colors flex items-center gap-2"
             >
               <Mail className="w-4 h-4" />
-              business@balloon.bali
+              business@skyrol.bali
             </a>
           </div>
           <p className="text-[0.75rem] text-foreground/40 mt-6">

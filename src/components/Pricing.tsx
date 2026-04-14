@@ -14,7 +14,7 @@ type Plan = {
   highlight: boolean;
   features: string[];
   cta: string;
-  // rough per-day à-la-carte cost used for "without Balloon" comparison
+  // rough per-day à-la-carte cost used for "without Skyrol" comparison
   separateBase: number;      // fixed upfront (esim + concierge research time, etc.)
   separatePerDay: number;    // scales with trip length (scooter, data, etc.)
   bookedThisWeek: number;
@@ -116,7 +116,27 @@ export default function Pricing() {
           </p>
         </motion.div>
 
-        {/* Trip length slider — drives savings math */}
+        {/* Savings anchor + Trip length slider */}
+        {(() => {
+          const popular = calculated.find((p) => p.highlight) ?? calculated[0];
+          return (
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.05 }}
+              className="max-w-md mx-auto mb-5 flex items-center justify-center gap-2 text-sm"
+            >
+              <TrendingDown className="w-4 h-4 text-emerald" />
+              <span className="text-foreground/60">
+                Save{" "}
+                <span className="font-bold text-emerald">${popular.savings}</span>
+                {" "}vs à-la-carte on a{" "}
+                <span className="font-semibold text-foreground/80">{days}-day</span> trip
+              </span>
+            </motion.div>
+          );
+        })()}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -182,7 +202,7 @@ export default function Pricing() {
                 </span>
               </div>
 
-              {/* Without Balloon comparison */}
+              {/* Without Skyrol comparison */}
               <div
                 className={`mb-5 flex items-center gap-2 text-[0.75rem] ${
                   plan.highlight ? "text-white/60" : "text-foreground/50"

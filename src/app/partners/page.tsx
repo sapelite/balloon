@@ -19,6 +19,7 @@ import {
   Shield,
   Sparkles,
 } from "lucide-react";
+import Wordmark from "@/components/Wordmark";
 
 type Partner = {
   id: string;
@@ -86,14 +87,8 @@ export default function PartnersPage() {
       {/* Header */}
       <div className="bg-white border-b border-foreground/5 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 py-4 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2">
-            <div className="w-9 h-9 rounded-xl bg-linear-to-br from-coral to-coral-dark flex items-center justify-center">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="text-white">
-                <path d="M12 2C8 2 5 5.5 5 9.5C5 14 12 19 12 19C12 19 19 14 19 9.5C19 5.5 16 2 12 2Z" fill="currentColor" opacity="0.9" />
-                <circle cx="12" cy="9" r="2.5" fill="white" />
-              </svg>
-            </div>
-            <span className="text-xl font-bold tracking-tight">Ball<span className="text-coral">oo</span>n</span>
+          <Link href="/" className="flex items-center">
+            <Wordmark className="text-xl" />
           </Link>
           <Link href="/auth" className="px-5 py-2 rounded-full bg-linear-to-r from-coral to-coral-dark text-white text-sm font-semibold">
             Sign In
@@ -207,8 +202,8 @@ export default function PartnersPage() {
                       </div>
                     )}
                     {partner.discount && (
-                      <div className="absolute bottom-3 right-3 px-2.5 py-1 rounded-full bg-foreground/80 text-white text-xs font-medium flex items-center gap-1">
-                        <Tag className="w-3 h-3" /> Deal
+                      <div className="absolute bottom-3 right-3 px-2.5 py-1 rounded-full bg-coral text-white text-xs font-bold flex items-center gap-1 shadow-[0_2px_8px_rgba(255,56,92,0.35)]">
+                        <Tag className="w-3 h-3" /> {partner.discount}
                       </div>
                     )}
                   </div>
@@ -236,7 +231,9 @@ export default function PartnersPage() {
                         {partner.area.charAt(0).toUpperCase() + partner.area.slice(1)}
                       </div>
                       {partner.priceRange && (
-                        <span className="text-xs font-semibold text-foreground/40">{partner.priceRange}</span>
+                        <span className="text-xs font-bold text-foreground px-2 py-1 rounded-md bg-sand">
+                          {partner.priceRange}
+                        </span>
                       )}
                     </div>
                   </div>

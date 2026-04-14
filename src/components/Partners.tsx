@@ -13,12 +13,12 @@ import {
 } from "lucide-react";
 
 const partnerCategories = [
-  { icon: Bike, title: "Scooter Rentals", desc: "Delivery across Canggu, Seminyak & Ubud" },
-  { icon: Home, title: "Villa Managers", desc: "200+ verified villas, instant booking" },
-  { icon: Wifi, title: "Telecom Partners", desc: "Telkomsel & B2B eSIM providers" },
-  { icon: UtensilsCrossed, title: "Restaurants & Cafes", desc: "Exclusive Balloon member discounts" },
-  { icon: Palmtree, title: "Beach Clubs & Spas", desc: "Queue skip & VIP access via QR" },
-  { icon: Building2, title: "Insurance & Fintech", desc: "SafetyWing, Heymondo, Revolut" },
+  { icon: Bike, title: "Scooter Rentals", desc: "Delivery across Canggu, Seminyak & Ubud", from: "$5/day" },
+  { icon: Home, title: "Villa Managers", desc: "200+ verified villas, instant booking", from: "$45/night" },
+  { icon: Wifi, title: "Telecom Partners", desc: "Telkomsel & B2B eSIM providers", from: "$8/trip" },
+  { icon: UtensilsCrossed, title: "Restaurants & Cafes", desc: "Exclusive Skyrol member discounts", from: "-10% off" },
+  { icon: Palmtree, title: "Beach Clubs & Spas", desc: "Queue skip & VIP access via QR", from: "Included" },
+  { icon: Building2, title: "Insurance & Fintech", desc: "SafetyWing, Heymondo, Revolut", from: "$1.50/day" },
 ];
 
 const stats = [
@@ -82,7 +82,12 @@ export default function Partners() {
               <div className="w-11 h-11 rounded-xl bg-emerald/8 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                 <p.icon className="w-5 h-5 text-emerald" />
               </div>
-              <h4 className="font-semibold text-[0.95rem] mb-1">{p.title}</h4>
+              <div className="flex items-start justify-between gap-3 mb-1">
+                <h4 className="font-semibold text-[0.95rem]">{p.title}</h4>
+                <span className="text-[0.7rem] font-bold text-emerald bg-emerald/10 px-2 py-0.5 rounded-md whitespace-nowrap shrink-0">
+                  from {p.from}
+                </span>
+              </div>
               <p className="text-[0.825rem] text-foreground/40">{p.desc}</p>
             </motion.div>
           ))}

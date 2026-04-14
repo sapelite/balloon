@@ -12,7 +12,7 @@ export function middleware(req: NextRequest) {
   );
   if (!needsAuth) return NextResponse.next();
 
-  const token = req.cookies.get("balloon_session")?.value;
+  const token = req.cookies.get("skyrol_session")?.value;
   if (!token) {
     const url = req.nextUrl.clone();
     url.pathname = "/auth";

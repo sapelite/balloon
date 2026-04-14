@@ -5,7 +5,7 @@ import TripGuideClient from "./TripGuideClient";
 export const dynamic = "force-dynamic";
 
 export const metadata = {
-  title: "Trip Guide — Balloon",
+  title: "Trip Guide — Skyrol",
   description: "Fun, bite-sized Bali guide: tips, spots, deals — all in one place.",
 };
 

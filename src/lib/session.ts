@@ -2,9 +2,11 @@ import { cookies } from "next/headers";
 import { createHmac, timingSafeEqual } from "crypto";
 import { db } from "@/lib/db";
 
-const COOKIE_NAME = "balloon_session";
-const PACK_COOKIE = "balloon_pack";
+const COOKIE_NAME = "skyrol_session";
+const PACK_COOKIE = "skyrol_pack";
+const AUDIENCE_COOKIE = "skyrol_audience";
 const MAX_AGE = 60 * 60 * 24 * 30; // 30 days
+const AUDIENCE_MAX_AGE = 60 * 60 * 24 * 365; // 1 year
 
 function getSecret(): string {
   const secret = process.env.SESSION_SECRET;
@@ -104,9 +106,26 @@ export async function getPackCookie() {
   return v && ["lite", "essentials", "full"].includes(v) ? v : "essentials";
 }
 
+export async function setAudienceCookie(audience: "traveler" | "business") {
+  const store = await cookies();
+  store.set(AUDIENCE_COOKIE, audience, {
+    httpOnly: false,
+    sameSite: "lax",
+    path: "/",
+    maxAge: AUDIENCE_MAX_AGE,
+    secure: process.env.NODE_ENV === "production",
+  });
+}
+
+export async function getAudienceCookie(): Promise<"traveler" | "business" | null> {
+  const store = await cookies();
+  const v = store.get(AUDIENCE_COOKIE)?.value;
+  return v === "traveler" || v === "business" ? v : null;
+}
+
 export async function getPurchasedPack(): Promise<string | null> {
   const store = await cookies();
-  const raw = store.get("balloon_purchased")?.value;
+  const raw = store.get("skyrol_purchased")?.value;
   if (!raw) return null;
   const parts = raw.split(".");
   if (parts.length !== 3) return null;

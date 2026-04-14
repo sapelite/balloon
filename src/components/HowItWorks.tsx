@@ -56,7 +56,7 @@ export default function HowItWorks() {
             Simple as 1-2-3-4
           </span>
           <h2 className="text-[2rem] sm:text-[2.5rem] lg:text-[3rem] font-bold tracking-[-0.03em] leading-[1.1] mb-4">
-            How Balloon works
+            How Skyrol works
           </h2>
           <p className="text-[1.05rem] text-foreground/45 max-w-lg mx-auto leading-relaxed font-[350]">
             From your couch to Canggu in four effortless steps.

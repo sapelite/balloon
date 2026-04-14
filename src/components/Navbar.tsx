@@ -5,11 +5,11 @@ import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-
 import { Menu, X, ArrowRight } from "lucide-react";
 
 const navLinks = [
-  { label: "Services", href: "#services" },
-  { label: "How It Works", href: "#how-it-works" },
-  { label: "Pricing", href: "#pricing" },
-  { label: "Partners", href: "#partners" },
-  { label: "FAQ", href: "#faq" },
+  { label: "Services", href: "/#services" },
+  { label: "How It Works", href: "/#how-it-works" },
+  { label: "Pricing", href: "/#pricing" },
+  { label: "Partners", href: "/#partners" },
+  { label: "FAQ", href: "/#faq" },
 ];
 
 export default function Navbar() {
@@ -45,7 +45,7 @@ export default function Navbar() {
     >
       <nav className="max-w-7xl mx-auto px-6 lg:px-10 h-[4.25rem] flex items-center justify-between">
         {/* Logo */}
-        <a href="#" className="flex items-center gap-2.5 group">
+        <a href="/" className="flex items-center gap-2.5 group">
           <div className="w-9 h-9 rounded-[10px] bg-gradient-to-br from-coral to-coral-dark flex items-center justify-center shadow-[0_2px_8px_rgba(255,99,99,0.3)] group-hover:shadow-[0_4px_16px_rgba(255,99,99,0.4)] transition-shadow duration-300">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" className="text-white">
               <path d="M12 2C8 2 5 5.5 5 9.5C5 14 12 19 12 19C12 19 19 14 19 9.5C19 5.5 16 2 12 2Z" fill="currentColor" opacity="0.9" />
@@ -97,7 +97,7 @@ export default function Navbar() {
                 Sign In
               </a>
               <a
-                href="#cta"
+                href="/#cta"
                 className="group px-5 py-2.5 rounded-full bg-foreground text-white text-[0.825rem] font-semibold hover:bg-foreground/90 transition-all flex items-center gap-1.5"
               >
                 Get Early Access
@@ -159,7 +159,7 @@ export default function Navbar() {
                       Sign In
                     </a>
                     <a
-                      href="#cta"
+                      href="/#cta"
                       onClick={() => setMobileOpen(false)}
                       className="block w-full text-center px-5 py-3 rounded-full bg-foreground text-white text-sm font-semibold"
                     >

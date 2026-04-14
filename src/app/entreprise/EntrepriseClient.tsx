@@ -91,12 +91,12 @@ export default function EntrepriseClient() {
   return (
     <main className="pt-[4.25rem]">
       {/* Hero */}
-      <section className="relative py-20 lg:py-28 overflow-hidden">
+      <section className="relative py-24 lg:py-32 overflow-hidden">
         <div className="absolute inset-0 -z-10">
           <div className="absolute top-[-10%] left-[-10%] w-[40rem] h-[40rem] rounded-full bg-coral/10 blur-3xl" />
           <div className="absolute bottom-[-20%] right-[-10%] w-[40rem] h-[40rem] rounded-full bg-gold/10 blur-3xl" />
         </div>
-        <div className="max-w-6xl mx-auto px-6 lg:px-10 text-center">
+        <div className="max-w-7xl mx-auto px-6 lg:px-10 text-center">
           <motion.span
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
@@ -108,7 +108,7 @@ export default function EntrepriseClient() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.08 }}
-            className="text-[2.25rem] sm:text-[3rem] lg:text-[3.75rem] font-bold tracking-[-0.035em] leading-[1.05] mb-5"
+            className="text-[2rem] sm:text-[2.75rem] lg:text-[3.5rem] font-bold tracking-[-0.03em] leading-[1.08] mb-5"
           >
             Boost your marketing with{" "}
             <span className="bg-linear-to-r from-coral via-gold to-coral-dark bg-clip-text text-transparent">
@@ -119,7 +119,7 @@ export default function EntrepriseClient() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.15 }}
-            className="text-[1.05rem] lg:text-[1.15rem] text-foreground/55 max-w-2xl mx-auto leading-relaxed font-[350]"
+            className="text-[1.05rem] text-foreground/45 max-w-xl mx-auto leading-relaxed font-[350]"
           >
             We handle the full digital stack for Bali businesses — content, social, strategy, CRM.
             And we plug you into the Balloon network: thousands of expats and tourists already on the ground.
@@ -149,7 +149,7 @@ export default function EntrepriseClient() {
 
       {/* Mock dashboard */}
       <section ref={dashRef} className="pb-24 lg:pb-32">
-        <div className="max-w-6xl mx-auto px-6 lg:px-10">
+        <div className="max-w-7xl mx-auto px-6 lg:px-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -231,16 +231,16 @@ export default function EntrepriseClient() {
       </section>
 
       {/* Offer grid */}
-      <section id="offer" className="py-20 lg:py-28 bg-card">
-        <div className="max-w-6xl mx-auto px-6 lg:px-10">
+      <section id="offer" className="py-24 lg:py-32 bg-card">
+        <div className="max-w-7xl mx-auto px-6 lg:px-10">
           <div className="text-center mb-14">
-            <span className="inline-block text-[0.72rem] font-bold text-gold uppercase tracking-[0.15em] mb-3">
+            <span className="inline-block text-[0.75rem] font-semibold text-coral uppercase tracking-[0.15em] mb-3">
               What we build for you
             </span>
-            <h2 className="text-[2rem] lg:text-[2.75rem] font-bold tracking-[-0.03em] leading-[1.1] mb-4">
+            <h2 className="text-[2rem] sm:text-[2.5rem] lg:text-[3rem] font-bold tracking-[-0.03em] leading-[1.1] mb-4">
               Your whole digital, handled.
             </h2>
-            <p className="text-[1rem] text-foreground/50 max-w-xl mx-auto leading-relaxed">
+            <p className="text-[1.05rem] text-foreground/45 max-w-xl mx-auto leading-relaxed font-[350]">
               Modular offer — pick what you need, we take care of the rest.
             </p>
           </div>
@@ -267,7 +267,7 @@ export default function EntrepriseClient() {
       </section>
 
       {/* Synergy with Balloon */}
-      <section className="py-20 lg:py-28">
+      <section className="py-24 lg:py-32">
         <div className="max-w-5xl mx-auto px-6 lg:px-10">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
@@ -314,15 +314,15 @@ export default function EntrepriseClient() {
       </section>
 
       {/* Contact */}
-      <section id="contact" className="py-20 lg:py-28 bg-card">
+      <section id="contact" className="py-24 lg:py-32 bg-card">
         <div className="max-w-3xl mx-auto px-6 lg:px-10 text-center">
-          <span className="inline-block text-[0.72rem] font-bold text-gold uppercase tracking-[0.15em] mb-3">
+          <span className="inline-block text-[0.75rem] font-semibold text-coral uppercase tracking-[0.15em] mb-3">
             Ready to level up?
           </span>
-          <h2 className="text-[2rem] lg:text-[2.75rem] font-bold tracking-[-0.03em] leading-[1.1] mb-4">
+          <h2 className="text-[2rem] sm:text-[2.5rem] lg:text-[3rem] font-bold tracking-[-0.03em] leading-[1.1] mb-4">
             Let&apos;s talk about your business.
           </h2>
-          <p className="text-[1rem] text-foreground/55 leading-relaxed mb-8">
+          <p className="text-[1.05rem] text-foreground/45 max-w-xl mx-auto leading-relaxed font-[350] mb-8">
             Every business is different. We build a tailored offer after a first chat —
             reach out for a free audit and a custom quote.
           </p>

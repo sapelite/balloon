@@ -77,6 +77,12 @@ export default function Navbar() {
           <a href="/trip-guide" className="text-[0.825rem] font-medium text-foreground/55 hover:text-foreground transition-colors px-3 py-2">
             Trip Guide
           </a>
+          <a
+            href="/entreprise"
+            className="text-[0.825rem] font-semibold px-3.5 py-2 rounded-full bg-linear-to-r from-coral/10 to-gold/10 text-coral hover:from-coral/15 hover:to-gold/15 transition-colors border border-coral/10"
+          >
+            For Business
+          </a>
           {user ? (
             <a
               href="/dashboard"
@@ -134,6 +140,9 @@ export default function Navbar() {
               ))}
               <a href="/trip-guide" onClick={() => setMobileOpen(false)} className="block text-sm font-medium text-foreground/60 hover:text-foreground hover:bg-foreground/[0.03] transition-colors py-2.5 px-3 rounded-lg">
                 Trip Guide
+              </a>
+              <a href="/entreprise" onClick={() => setMobileOpen(false)} className="block text-sm font-semibold text-coral bg-coral/5 hover:bg-coral/10 transition-colors py-2.5 px-3 rounded-lg">
+                For Business
               </a>
               <div className="pt-3 space-y-2">
                 {user ? (

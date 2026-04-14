@@ -2,28 +2,58 @@
 
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
-export default function AuthPage() {
+function AuthInner() {
+  const searchParams = useSearchParams();
+  const next = searchParams.get("next");
+  // Only allow relative paths as redirect target to prevent open-redirect
+  const safeNext = next && next.startsWith("/") && !next.startsWith("//") ? next : "/dashboard";
   const [mode, setMode] = useState<"login" | "signup">("login");
   const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<string | null>(null);
 
-  const handleSocial = (provider: string) => {
+  async function doLogin(payload: { email: string; name?: string; provider: string }) {
+    const res = await fetch("/api/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      throw new Error(data.error || "Login failed");
+    }
+    window.location.href = safeNext;
+  }
+
+  const handleSocial = async (provider: string) => {
+    setError(null);
     setLoading(provider);
-    setTimeout(() => {
+    try {
+      // Mock social login with a demo email per provider
+      const demoEmail = `demo.${provider}@balloon.app`;
+      const demoName = provider === "google" ? "Google User" : "Apple User";
+      await doLogin({ email: demoEmail, name: demoName, provider });
+    } catch (err) {
+      setError((err as Error).message);
       setLoading(null);
-      window.location.href = "/dashboard";
-    }, 2000);
+    }
   };
 
-  const handleEmail = (e: React.FormEvent) => {
+  const handleEmail = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) return;
+    setError(null);
     setLoading("email");
-    setTimeout(() => {
+    try {
+      await doLogin({ email, name: mode === "signup" ? name : undefined, provider: "email" });
+    } catch (err) {
+      setError((err as Error).message);
       setLoading(null);
-      window.location.href = "/dashboard";
-    }, 1500);
+    }
   };
 
   return (
@@ -119,8 +149,13 @@ export default function AuthPage() {
               <input
                 type="text"
                 placeholder="Your name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
                 className="w-full px-4 py-3.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/30 focus:outline-none focus:border-coral/50 focus:ring-2 focus:ring-coral/20 transition-all text-sm"
               />
+            )}
+            {error && (
+              <p className="text-xs text-red-400 text-center">{error}</p>
             )}
             <button
               type="submit"
@@ -153,5 +188,13 @@ export default function AuthPage() {
         </p>
       </motion.div>
     </div>
+  );
+}
+
+export default function AuthPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-[#1A1A2E]" />}>
+      <AuthInner />
+    </Suspense>
   );
 }

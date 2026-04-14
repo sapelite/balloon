@@ -1,7 +1,21 @@
 import { db } from "@/lib/db";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function POST() {
+export async function POST(req: NextRequest) {
+  // Require a secret header matching env in any non-dev environment.
+  // In dev (localhost) we allow open access for DX.
+  const expected = process.env.SEED_SECRET;
+  const provided = req.headers.get("x-seed-secret");
+  const isProdLike = process.env.NODE_ENV === "production";
+  if (isProdLike) {
+    if (!expected) {
+      return NextResponse.json({ error: "Seeding disabled (no SEED_SECRET)" }, { status: 403 });
+    }
+    if (!provided || provided !== expected) {
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    }
+  }
+
   try {
     // Clean existing data
     await db.review.deleteMany();

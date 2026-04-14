@@ -16,7 +16,15 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
+  const [user, setUser] = useState<{ name: string | null; email: string } | null>(null);
   const { scrollY } = useScroll();
+
+  useEffect(() => {
+    fetch("/api/auth/me")
+      .then((r) => r.json())
+      .then((d) => setUser(d.user))
+      .catch(() => {});
+  }, []);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     const prev = scrollY.getPrevious() ?? 0;
@@ -66,16 +74,31 @@ export default function Navbar() {
 
         {/* CTA */}
         <div className="hidden md:flex items-center gap-3">
-          <a href="/auth" className="text-[0.825rem] font-medium text-foreground/55 hover:text-foreground transition-colors px-3 py-2">
-            Sign In
+          <a href="/trip-guide" className="text-[0.825rem] font-medium text-foreground/55 hover:text-foreground transition-colors px-3 py-2">
+            Trip Guide
           </a>
-          <a
-            href="#cta"
-            className="group px-5 py-2.5 rounded-full bg-foreground text-white text-[0.825rem] font-semibold hover:bg-foreground/90 transition-all flex items-center gap-1.5"
-          >
-            Get Early Access
-            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
-          </a>
+          {user ? (
+            <a
+              href="/dashboard"
+              className="group px-5 py-2.5 rounded-full bg-foreground text-white text-[0.825rem] font-semibold hover:bg-foreground/90 transition-all flex items-center gap-1.5"
+            >
+              Dashboard
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+            </a>
+          ) : (
+            <>
+              <a href="/auth" className="text-[0.825rem] font-medium text-foreground/55 hover:text-foreground transition-colors px-3 py-2">
+                Sign In
+              </a>
+              <a
+                href="#cta"
+                className="group px-5 py-2.5 rounded-full bg-foreground text-white text-[0.825rem] font-semibold hover:bg-foreground/90 transition-all flex items-center gap-1.5"
+              >
+                Get Early Access
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+              </a>
+            </>
+          )}
         </div>
 
         {/* Mobile toggle */}
@@ -109,17 +132,32 @@ export default function Navbar() {
                   {link.label}
                 </a>
               ))}
+              <a href="/trip-guide" onClick={() => setMobileOpen(false)} className="block text-sm font-medium text-foreground/60 hover:text-foreground hover:bg-foreground/[0.03] transition-colors py-2.5 px-3 rounded-lg">
+                Trip Guide
+              </a>
               <div className="pt-3 space-y-2">
-                <a href="/auth" className="block text-center py-2.5 text-sm font-medium text-foreground/60">
-                  Sign In
-                </a>
-                <a
-                  href="#cta"
-                  onClick={() => setMobileOpen(false)}
-                  className="block w-full text-center px-5 py-3 rounded-full bg-foreground text-white text-sm font-semibold"
-                >
-                  Get Early Access
-                </a>
+                {user ? (
+                  <a
+                    href="/dashboard"
+                    onClick={() => setMobileOpen(false)}
+                    className="block w-full text-center px-5 py-3 rounded-full bg-foreground text-white text-sm font-semibold"
+                  >
+                    Open Dashboard
+                  </a>
+                ) : (
+                  <>
+                    <a href="/auth" className="block text-center py-2.5 text-sm font-medium text-foreground/60">
+                      Sign In
+                    </a>
+                    <a
+                      href="#cta"
+                      onClick={() => setMobileOpen(false)}
+                      className="block w-full text-center px-5 py-3 rounded-full bg-foreground text-white text-sm font-semibold"
+                    >
+                      Get Early Access
+                    </a>
+                  </>
+                )}
               </div>
             </div>
           </motion.div>

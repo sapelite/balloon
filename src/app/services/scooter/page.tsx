@@ -63,11 +63,35 @@ export default function ScooterPage() {
     : 0;
   const total = selected ? selected.price * days : 0;
 
-  const handleConfirm = () => {
-    setConfirmed(true);
-    setTimeout(() => {
-      window.location.href = "/dashboard";
-    }, 3000);
+  const [error, setError] = useState<string | null>(null);
+  const [saving, setSaving] = useState(false);
+
+  const handleConfirm = async () => {
+    if (!selectedScooter || !startDate || !endDate) return;
+    setSaving(true);
+    setError(null);
+    try {
+      const res = await fetch("/api/bookings", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ scooterId: selectedScooter, startDate, endDate, address }),
+      });
+      if (res.status === 401) {
+        window.location.href = "/auth";
+        return;
+      }
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || "Booking failed");
+      }
+      setConfirmed(true);
+      setTimeout(() => {
+        window.location.href = "/dashboard";
+      }, 2500);
+    } catch (err) {
+      setError((err as Error).message);
+      setSaving(false);
+    }
   };
 
   return (
@@ -281,11 +305,24 @@ export default function ScooterPage() {
                   </button>
                   <button
                     onClick={handleConfirm}
-                    className="px-8 py-3 rounded-full bg-gradient-to-r from-coral to-coral-dark text-white font-semibold shadow-lg shadow-coral/25 hover:shadow-coral/40 transition-all flex items-center gap-2"
+                    disabled={saving}
+                    className="px-8 py-3 rounded-full bg-gradient-to-r from-coral to-coral-dark text-white font-semibold shadow-lg shadow-coral/25 hover:shadow-coral/40 transition-all flex items-center gap-2 disabled:opacity-60"
                   >
-                    <Bike className="w-4 h-4" /> Confirm Booking
+                    {saving ? (
+                      <>
+                        <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                        Booking…
+                      </>
+                    ) : (
+                      <>
+                        <Bike className="w-4 h-4" /> Confirm Booking
+                      </>
+                    )}
                   </button>
                 </div>
+                {error && (
+                  <p className="text-center text-sm text-red-500 mt-3">{error}</p>
+                )}
               </div>
             </motion.div>
           )}

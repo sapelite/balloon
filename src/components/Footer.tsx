@@ -1,22 +1,22 @@
 import Wordmark from "@/components/Wordmark";
 
 const footerLinks = {
-  Product: [
-    { label: "Services", href: "#services" },
-    { label: "Pricing", href: "#pricing" },
-    { label: "How It Works", href: "#how-it-works" },
-    { label: "FAQ", href: "#faq" },
+  Travel: [
+    { label: "How it works", href: "/#how-it-works" },
+    { label: "Pricing", href: "/#pricing" },
+    { label: "Free guides", href: "/guides" },
+    { label: "Trip planner", href: "/trip-guide" },
+  ],
+  Audiences: [
+    { label: "Travelers", href: "/onboarding" },
+    { label: "For Business", href: "/business" },
+    { label: "For Investors", href: "/investors" },
+    { label: "Partners", href: "/partners" },
   ],
   Company: [
-    { label: "About", href: "#" },
-    { label: "Partners", href: "/partners" },
-    { label: "Careers", href: "#" },
-    { label: "Blog", href: "#" },
-  ],
-  Legal: [
+    { label: "Contact", href: "mailto:hello@skyrol.bali" },
     { label: "Privacy", href: "#" },
     { label: "Terms", href: "#" },
-    { label: "Cookies", href: "#" },
   ],
 };
 
@@ -31,7 +31,7 @@ export default function Footer() {
               <Wordmark className="text-xl" tone="dark" />
             </div>
             <p className="text-[0.825rem] leading-relaxed max-w-[280px] mb-5">
-              Your all-in-one concierge for Bali. Connecting travelers with trusted local services.
+              Quality hotels, drivers, and tables in Canggu, Uluwatu & Ubud — with a concierge on call, 24/7.
             </p>
             <div className="flex gap-2.5">
               {["IG", "TK", "X"].map((name) => (

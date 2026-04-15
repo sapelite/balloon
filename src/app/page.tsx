@@ -18,8 +18,12 @@ import TrustStrip from "@/components/TrustStrip";
 export default async function Home() {
   const audience = await getAudienceCookie();
 
-  if (audience === "business") {
+  if (audience === "entrepreneur") {
     redirect("/business");
+  }
+
+  if (audience === "investor") {
+    redirect("/investors");
   }
 
   if (!audience) {

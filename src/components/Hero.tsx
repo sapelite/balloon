@@ -62,8 +62,7 @@ export default function Hero() {
           transition={{ duration: 0.7, delay: 0.15 }}
           className="text-[3.2rem] sm:text-[4rem] lg:text-[5rem] font-bold tracking-[-0.035em] leading-[1.05] mb-7 text-glow"
         >
-          Bali in{" "}
-          <span className="gradient-text">one click</span>
+          Bali, <span className="gradient-text">handled</span>
           <span className="text-coral">.</span>
         </motion.h1>
 
@@ -72,12 +71,12 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           transition={{ duration: 0.7, delay: 0.3 }}
-          className="text-[1.1rem] sm:text-[1.2rem] text-foreground/50 max-w-[540px] mx-auto mb-11 leading-[1.7] font-[350]"
+          className="text-[1.1rem] sm:text-[1.2rem] text-foreground/50 max-w-145 mx-auto mb-11 leading-[1.7] font-[350]"
         >
-          eSIM activated on landing. Private driver at the gate. Scooter
-          delivered to your villa.{" "}
+          Hand-picked hotels in Canggu, Uluwatu & Ubud. English-speaking private drivers.
+          Tables at the restaurants you actually want.{" "}
           <span className="text-foreground/70 font-medium">
-            Everything before takeoff.
+            One flat price. 24/7 concierge on island.
           </span>
         </motion.p>
 
@@ -100,7 +99,7 @@ export default function Hero() {
             className="group px-7 py-3.5 rounded-full text-foreground/60 font-semibold text-[0.9rem] hover:text-foreground hover:bg-foreground/[0.04] transition-all duration-200 flex items-center gap-2"
           >
             <Play className="w-4 h-4 text-coral" />
-            See How It Works
+            See how it works
           </a>
         </motion.div>
 

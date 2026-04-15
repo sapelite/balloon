@@ -5,8 +5,9 @@ import TripGuideClient from "./TripGuideClient";
 export const dynamic = "force-dynamic";
 
 export const metadata = {
-  title: "Trip Guide — Skyrol",
-  description: "Fun, bite-sized Bali guide: tips, spots, deals — all in one place.",
+  title: "Your trip guide",
+  description: "Your personalized Bali trip guide — tips, spots, deals — all in one place.",
+  robots: { index: false, follow: false },
 };
 
 export default async function TripGuidePage() {

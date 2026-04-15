@@ -11,10 +11,23 @@ type Props = { params: Promise<{ slug: string }> };
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const guide = await db.guide.findUnique({ where: { slug } });
-  if (!guide) return { title: "Guide Not Found" };
+  if (!guide) return { title: "Guide not found" };
+  const canonical = `/guides/${guide.slug}`;
   return {
-    title: `${guide.title} — Skyrol`,
+    title: guide.title,
     description: guide.excerpt,
+    alternates: { canonical },
+    openGraph: {
+      title: `${guide.title} · Skyrol`,
+      description: guide.excerpt,
+      url: canonical,
+      type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${guide.title} · Skyrol`,
+      description: guide.excerpt,
+    },
   };
 }
 

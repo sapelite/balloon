@@ -13,25 +13,65 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://skyrol.app";
+const SITE_NAME = "Skyrol";
+const DEFAULT_TITLE = "Skyrol — Bali in one click";
+const DEFAULT_DESC =
+  "Your all-in-one concierge for Bali. eSIM, airport transfer, scooter delivery, and curated local experiences — sorted before you land.";
+
 export const metadata: Metadata = {
-  title: "Skyrol — Bali in One Click",
-  description:
-    "Your all-in-one concierge for Bali. eSIM, airport transfer, scooter delivery, and local experiences — all before you land.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: DEFAULT_TITLE,
+    template: "%s · Skyrol",
+  },
+  description: DEFAULT_DESC,
+  applicationName: SITE_NAME,
   keywords: [
     "Bali",
-    "travel",
+    "Bali travel",
     "eSIM",
     "scooter rental",
     "airport transfer",
-    "concierge",
+    "Bali concierge",
+    "travel planner",
     "Skyrol",
   ],
+  authors: [{ name: SITE_NAME }],
+  creator: SITE_NAME,
+  publisher: SITE_NAME,
+  alternates: { canonical: "/" },
   openGraph: {
-    title: "Skyrol — Bali in One Click",
-    description:
-      "Your all-in-one concierge for Bali. eSIM, airport transfer, scooter delivery, and local experiences.",
     type: "website",
+    url: SITE_URL,
+    siteName: SITE_NAME,
+    title: DEFAULT_TITLE,
+    description: DEFAULT_DESC,
+    locale: "en_US",
+    images: [{ url: "/skyrol_logo.png", width: 1200, height: 630, alt: SITE_NAME }],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: DEFAULT_TITLE,
+    description: DEFAULT_DESC,
+    images: ["/skyrol_logo.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 },
+  },
+  category: "travel",
+};
+
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: SITE_NAME,
+  url: SITE_URL,
+  logo: `${SITE_URL}/skyrol_logo.png`,
+  sameAs: [] as string[],
+  slogan: "Bali, in one click.",
 };
 
 export default function RootLayout({
@@ -45,6 +85,10 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
         <PageLoader />
         {children}
       </body>

@@ -34,7 +34,11 @@ export async function POST(req: NextRequest) {
 
   try {
     const body = await readJson(req);
-    const audience = oneOf(body.audience, "audience", ["traveler", "business"] as const);
+    const audience = oneOf(body.audience, "audience", [
+      "traveler",
+      "entrepreneur",
+      "investor",
+    ] as const);
     const answers = body.answers;
     if (!answers || typeof answers !== "object" || Array.isArray(answers)) {
       throw new ValidationError("answers must be an object");

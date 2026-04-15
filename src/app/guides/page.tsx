@@ -17,8 +17,17 @@ import Wordmark from "@/components/Wordmark";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Free Bali Guides — Skyrol",
-  description: "Free travel guides for Bali: visa, tourist tax, emergency contacts, currency, Bahasa lexicon, and first-timer tips.",
+  title: "Free Bali guides",
+  description:
+    "Free Bali travel guides: visa, tourist tax, emergency contacts, currency, Bahasa lexicon, and first-timer tips.",
+  alternates: { canonical: "/guides" },
+  openGraph: {
+    title: "Free Bali guides · Skyrol",
+    description:
+      "Visa, tourist tax, emergency numbers, currency tips, and Bahasa essentials — free.",
+    url: "/guides",
+    type: "website",
+  },
 };
 
 const iconMap: Record<string, React.ElementType> = {

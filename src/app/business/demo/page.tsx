@@ -1,19 +1,54 @@
+import Link from "next/link";
+import { ArrowLeft, PlayCircle } from "lucide-react";
 import { db } from "@/lib/db";
-import { notFound } from "next/navigation";
 import BusinessDashboardClient from "../dashboard/BusinessDashboardClient";
 
 export const dynamic = "force-dynamic";
 
 export const metadata = {
-  title: "Skyrol Business — Live Demo",
+  title: "Business dashboard — live demo",
   description: "A live preview of the Skyrol Business dashboard with real-looking data.",
+  alternates: { canonical: "/business/demo" },
+  robots: { index: true, follow: true },
 };
 
 export default async function BusinessDemoPage() {
   const client = await db.businessClient.findFirst({
     orderBy: { createdAt: "asc" },
   });
-  if (!client) notFound();
+  if (!client) {
+    return (
+      <div className="min-h-screen bg-card flex items-center justify-center px-6 py-16">
+        <div className="max-w-xl w-full bg-white rounded-3xl border border-border shadow-airbnb p-8 lg:p-12 text-center">
+          <div className="w-14 h-14 rounded-2xl bg-coral/10 flex items-center justify-center mx-auto mb-5">
+            <PlayCircle className="w-7 h-7 text-coral" />
+          </div>
+          <h1 className="text-2xl font-bold tracking-tight mb-3">
+            Live demo is warming up.
+          </h1>
+          <p className="text-foreground/55 leading-relaxed mb-7">
+            Our demo workspace hasn&apos;t been seeded on this environment yet.
+            In the meantime, let&apos;s jump on a 15-minute call — we&apos;ll walk you through it live.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <a
+              href="mailto:business@skyrol.bali?subject=Skyrol%20Business%20%E2%80%94%20live%20walkthrough"
+              className="px-5 py-3 rounded-full bg-coral text-white font-semibold text-sm shadow-lg shadow-coral/25 hover:shadow-coral/40 transition-all"
+            >
+              Book a walkthrough
+            </a>
+            <Link
+              href="/business"
+              className="px-5 py-3 rounded-full bg-foreground/4 hover:bg-foreground/7 text-foreground font-semibold text-sm transition-colors flex items-center justify-center gap-1.5"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Back
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   const [briefing, metrics, insights, content] = await Promise.all([
     db.clientBriefing.findFirst({

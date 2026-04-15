@@ -133,7 +133,7 @@ function AuthInner() {
               placeholder="Enter your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-3.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/30 focus:outline-none focus:border-coral/50 focus:ring-2 focus:ring-coral/20 transition-all text-sm"
+              className="w-full px-4 py-3.5 rounded-xl bg-white border border-border text-foreground placeholder:text-muted/60 focus:outline-none focus:border-foreground focus:ring-2 focus:ring-foreground/10 transition-all text-sm"
             />
             {mode === "signup" && (
               <input
@@ -145,7 +145,7 @@ function AuthInner() {
               />
             )}
             {error && (
-              <p className="text-xs text-red-400 text-center">{error}</p>
+              <p className="text-xs text-coral-dark text-center" role="alert">{error}</p>
             )}
             <button
               type="submit"

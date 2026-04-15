@@ -22,10 +22,25 @@ type Props = { params: Promise<{ slug: string }> };
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const partner = await db.partner.findUnique({ where: { slug } });
-  if (!partner) return { title: "Partner Not Found" };
+  if (!partner) return { title: "Partner not found" };
+  const canonical = `/partners/${partner.slug}`;
   return {
-    title: `${partner.name} — Skyrol Partner`,
+    title: partner.name,
     description: partner.description,
+    alternates: { canonical },
+    openGraph: {
+      title: `${partner.name} · Skyrol`,
+      description: partner.description,
+      url: canonical,
+      type: "website",
+      images: partner.image ? [{ url: partner.image, alt: partner.name }] : undefined,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${partner.name} · Skyrol`,
+      description: partner.description,
+      images: partner.image ? [partner.image] : undefined,
+    },
   };
 }
 

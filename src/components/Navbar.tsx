@@ -20,15 +20,15 @@ export default function Navbar() {
   const [user, setUser] = useState<{ name: string | null; email: string } | null>(null);
   const { scrollY } = useScroll();
 
-  async function goToBusiness() {
+  async function goToAudience(audience: "traveler" | "entrepreneur" | "investor", href: string) {
     try {
       await fetch("/api/audience", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ audience: "business" }),
+        body: JSON.stringify({ audience }),
       });
     } catch {}
-    window.location.href = "/business";
+    window.location.href = href;
   }
 
   useEffect(() => {
@@ -79,12 +79,26 @@ export default function Navbar() {
           <a href="/trip-guide" className="text-[0.825rem] font-medium text-foreground/55 hover:text-foreground transition-colors px-3 py-2">
             Trip Guide
           </a>
-          <button
-            onClick={goToBusiness}
-            className="text-[0.825rem] font-semibold px-3.5 py-2 rounded-full bg-linear-to-r from-coral/10 to-gold/10 text-coral hover:from-coral/15 hover:to-gold/15 transition-colors border border-coral/10"
-          >
-            For Business
-          </button>
+          <div className="flex items-center rounded-full border border-foreground/10 bg-foreground/2 p-0.5">
+            <button
+              onClick={() => goToAudience("traveler", "/")}
+              className="text-[0.75rem] font-semibold px-3 py-1.5 rounded-full text-coral hover:bg-coral/10 transition-colors"
+            >
+              Travel
+            </button>
+            <button
+              onClick={() => goToAudience("entrepreneur", "/business")}
+              className="text-[0.75rem] font-semibold px-3 py-1.5 rounded-full text-lagoon hover:bg-lagoon/10 transition-colors"
+            >
+              Business
+            </button>
+            <button
+              onClick={() => goToAudience("investor", "/investors")}
+              className="text-[0.75rem] font-semibold px-3 py-1.5 rounded-full text-emerald hover:bg-emerald/10 transition-colors"
+            >
+              Invest
+            </button>
+          </div>
           {user ? (
             <a
               href="/dashboard"
@@ -147,10 +161,16 @@ export default function Navbar() {
                 Trip Guide
               </a>
               <button
-                onClick={() => { setMobileOpen(false); goToBusiness(); }}
-                className="block w-full text-left text-sm font-semibold text-coral bg-coral/5 hover:bg-coral/10 transition-colors py-2.5 px-3 rounded-lg"
+                onClick={() => { setMobileOpen(false); goToAudience("entrepreneur", "/business"); }}
+                className="block w-full text-left text-sm font-semibold text-lagoon bg-lagoon/5 hover:bg-lagoon/10 transition-colors py-2.5 px-3 rounded-lg"
               >
                 For Business
+              </button>
+              <button
+                onClick={() => { setMobileOpen(false); goToAudience("investor", "/investors"); }}
+                className="block w-full text-left text-sm font-semibold text-emerald bg-emerald/5 hover:bg-emerald/10 transition-colors py-2.5 px-3 rounded-lg"
+              >
+                For Investors
               </button>
               <div className="pt-3 space-y-2">
                 {user ? (

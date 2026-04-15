@@ -4,8 +4,9 @@ import OnboardingClient from "./OnboardingClient";
 export const dynamic = "force-dynamic";
 
 export const metadata = {
-  title: "Skyrol — Personalize your experience",
+  title: "Personalize your experience",
   description: "A few quick questions so we can tailor Skyrol to you.",
+  robots: { index: false, follow: false },
 };
 
 export default async function OnboardingPage() {

@@ -1,9 +1,13 @@
 import { db } from "@/lib/db";
 import { email as emailVal, readJson, str, ValidationError } from "@/lib/validate";
 import { getClientIp, rateLimit } from "@/lib/rateLimit";
+import { sameOriginOrThrow } from "@/lib/csrf";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
+  try { sameOriginOrThrow(request); } catch {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  }
   const ip = getClientIp(request);
   const rl = rateLimit(`waitlist:${ip}`, { limit: 5, windowMs: 60_000 });
   if (!rl.ok) {

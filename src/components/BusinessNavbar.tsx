@@ -30,15 +30,15 @@ export default function BusinessNavbar() {
     setScrolled(latest > 30);
   });
 
-  async function switchToTraveler() {
+  async function goToAudience(audience: "traveler" | "entrepreneur" | "investor", href: string) {
     try {
       await fetch("/api/audience", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ audience: "traveler" }),
+        body: JSON.stringify({ audience }),
       });
     } catch {}
-    window.location.href = "/";
+    window.location.href = href;
   }
 
   return (
@@ -70,12 +70,26 @@ export default function BusinessNavbar() {
 
         {/* CTA */}
         <div className="hidden lg:flex items-center gap-2 shrink-0">
-          <button
-            onClick={switchToTraveler}
-            className="text-[0.8rem] font-medium text-muted hover:text-foreground transition-colors px-3 py-2"
-          >
-            Traveler site
-          </button>
+          <div className="flex items-center rounded-full border border-foreground/10 bg-foreground/2 p-0.5">
+            <button
+              onClick={() => goToAudience("traveler", "/")}
+              className="text-[0.75rem] font-semibold px-3 py-1.5 rounded-full text-coral hover:bg-coral/10 transition-colors"
+            >
+              Travel
+            </button>
+            <button
+              className="text-[0.75rem] font-semibold px-3 py-1.5 rounded-full bg-lagoon/10 text-lagoon"
+              aria-current="page"
+            >
+              Business
+            </button>
+            <button
+              onClick={() => goToAudience("investor", "/investors")}
+              className="text-[0.75rem] font-semibold px-3 py-1.5 rounded-full text-emerald hover:bg-emerald/10 transition-colors"
+            >
+              Invest
+            </button>
+          </div>
           {user ? (
             <a
               href="/business/dashboard"
@@ -134,12 +148,26 @@ export default function BusinessNavbar() {
                   {link.label}
                 </a>
               ))}
-              <button
-                onClick={() => { setMobileOpen(false); switchToTraveler(); }}
-                className="block w-full text-left text-sm font-medium text-muted py-2.5 px-3 rounded-lg"
-              >
-                ← Traveler site
-              </button>
+              <div className="pt-2 pb-1 grid grid-cols-3 gap-2">
+                <button
+                  onClick={() => { setMobileOpen(false); goToAudience("traveler", "/"); }}
+                  className="text-xs font-semibold py-2 rounded-lg bg-coral/10 text-coral hover:bg-coral/15 transition-colors"
+                >
+                  Travel
+                </button>
+                <button
+                  className="text-xs font-semibold py-2 rounded-lg bg-lagoon/15 text-lagoon"
+                  aria-current="page"
+                >
+                  Business
+                </button>
+                <button
+                  onClick={() => { setMobileOpen(false); goToAudience("investor", "/investors"); }}
+                  className="text-xs font-semibold py-2 rounded-lg bg-emerald/10 text-emerald hover:bg-emerald/15 transition-colors"
+                >
+                  Invest
+                </button>
+              </div>
               <div className="pt-3 space-y-2">
                 {user ? (
                   <a

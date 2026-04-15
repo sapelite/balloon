@@ -1,13 +1,32 @@
 import { db } from "@/lib/db";
-import { getCurrentUser, getPackCookie, getPurchasedPack } from "@/lib/session";
+import { getCurrentUser, getCurrentUserId, getPackCookie, getPurchasedPack } from "@/lib/session";
 import { redirect } from "next/navigation";
 import DashboardClient from "./DashboardClient";
+import InvestorDashboardClient from "./InvestorDashboardClient";
 
 export const dynamic = "force-dynamic";
 
 export default async function DashboardPage() {
   const user = await getCurrentUser();
   if (!user) redirect("/auth");
+
+  const userId = await getCurrentUserId();
+  const profile = userId
+    ? await db.user.findUnique({
+        where: { id: userId },
+        select: { profileAudience: true },
+      })
+    : null;
+
+  const audience = profile?.profileAudience ?? null;
+
+  if (audience === "entrepreneur") {
+    redirect("/business/dashboard");
+  }
+
+  if (audience === "investor") {
+    return <InvestorDashboardClient user={user} />;
+  }
 
   const bookings = await db.booking.findMany({
     where: { userId: user.id },

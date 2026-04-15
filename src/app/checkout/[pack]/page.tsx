@@ -9,7 +9,11 @@ type Pack = (typeof VALID_PACKS)[number];
 
 export async function generateMetadata({ params }: { params: Promise<{ pack: string }> }) {
   const { pack } = await params;
-  return { title: `Checkout — ${pack} — Skyrol` };
+  const label = pack.charAt(0).toUpperCase() + pack.slice(1);
+  return {
+    title: `Checkout · ${label}`,
+    robots: { index: false, follow: false },
+  };
 }
 
 export default async function CheckoutPage({

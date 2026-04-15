@@ -37,7 +37,6 @@ export async function POST(req: NextRequest) {
     const audience = oneOf(body.audience, "audience", [
       "traveler",
       "entrepreneur",
-      "investor",
     ] as const);
     const answers = body.answers;
     if (!answers || typeof answers !== "object" || Array.isArray(answers)) {

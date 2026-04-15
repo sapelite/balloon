@@ -24,7 +24,6 @@ export async function POST(req: NextRequest) {
     await db.partner.deleteMany();
     await db.guide.deleteMany();
     await db.user.deleteMany();
-    await db.waitlist.deleteMany();
 
     // ─── Demo User ────────────────────────────────────────
     const user = await db.user.create({
@@ -244,19 +243,9 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    // ─── Waitlist ─────────────────────────────────────────
-    await db.waitlist.createMany({
-      data: [
-        { email: "sarah@example.com", source: "hero" },
-        { email: "marc@example.com", source: "cta" },
-        { email: "yuki@example.com", source: "guide" },
-        { email: "james@example.com", source: "partner" },
-      ],
-    });
-
     return NextResponse.json({
       success: true,
-      message: `Seeded: 1 user, ${partners.length} partners, 6 guides, 10 reviews, 3 bookings, 4 waitlist`,
+      message: `Seeded: 1 user, ${partners.length} partners, 6 guides, 10 reviews, 3 bookings`,
     });
   } catch (error) {
     console.error("Seed error:", error);

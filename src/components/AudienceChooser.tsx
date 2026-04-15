@@ -2,10 +2,10 @@
 
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { Plane, Briefcase, TrendingUp, ArrowRight, ShieldCheck } from "lucide-react";
+import { Plane, Briefcase, ArrowRight, ShieldCheck } from "lucide-react";
 import Wordmark from "@/components/Wordmark";
 
-type Audience = "traveler" | "entrepreneur" | "investor";
+type Audience = "traveler" | "entrepreneur";
 
 const CARDS: {
   key: Audience;
@@ -51,22 +51,6 @@ const CARDS: {
     accent: "text-lagoon",
     hoverBorder: "hover:border-lagoon/40",
   },
-  {
-    key: "investor",
-    icon: TrendingUp,
-    iconBg: "bg-emerald/10",
-    iconFg: "text-emerald",
-    headline: "I'm looking to invest",
-    tagline: "Deal flow, jurisdiction help, and operators you can trust.",
-    bullets: [
-      "Curated opportunities by industry",
-      "Legal, hiring & paperwork support",
-      "Direct intros to proven operators",
-    ],
-    cta: "See opportunities",
-    accent: "text-emerald",
-    hoverBorder: "hover:border-emerald/40",
-  },
 ];
 
 export default function AudienceChooser() {
@@ -109,7 +93,7 @@ export default function AudienceChooser() {
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-5">
+        <div className="grid md:grid-cols-2 gap-5 max-w-4xl mx-auto">
           {CARDS.map((card, i) => {
             const Icon = card.icon;
             return (

@@ -1,26 +1,25 @@
 "use client";
 
+import Link from "next/link";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
 import { Menu, X, ArrowRight } from "lucide-react";
 import Wordmark from "@/components/Wordmark";
 
 const navLinks = [
-  { label: "Services", href: "/#services" },
-  { label: "How It Works", href: "/#how-it-works" },
-  { label: "Pricing", href: "/#pricing" },
-  { label: "Partners", href: "/#partners" },
+  { label: "Included", href: "/#included" },
+  { label: "How it works", href: "/#how" },
+  { label: "Areas", href: "/#areas" },
   { label: "FAQ", href: "/#faq" },
 ];
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [hidden, setHidden] = useState(false);
   const [user, setUser] = useState<{ name: string | null; email: string } | null>(null);
   const { scrollY } = useScroll();
 
-  async function goToAudience(audience: "traveler" | "entrepreneur" | "investor", href: string) {
+  async function goToAudience(audience: "traveler" | "entrepreneur", href: string) {
     try {
       await fetch("/api/audience", {
         method: "POST",
@@ -32,166 +31,95 @@ export default function Navbar() {
   }
 
   useEffect(() => {
-    fetch("/api/auth/me")
-      .then((r) => r.json())
-      .then((d) => setUser(d.user))
-      .catch(() => {});
+    fetch("/api/auth/me").then((r) => r.json()).then((d) => setUser(d.user)).catch(() => {});
   }, []);
 
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    const prev = scrollY.getPrevious() ?? 0;
-    setScrolled(latest > 50);
-    setHidden(latest > prev && latest > 300);
-  });
+  useMotionValueEvent(scrollY, "change", (latest) => setScrolled(latest > 20));
 
   return (
-    <motion.header
-      initial={{ y: -100 }}
-      animate={{ y: hidden && !mobileOpen ? -100 : 0 }}
-      transition={{ duration: 0.3, ease: "easeInOut" }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled
-          ? "glass border-b border-black/[0.04] shadow-[0_1px_3px_rgba(0,0,0,0.04)]"
-          : "bg-transparent"
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled ? "bg-white/90 backdrop-blur-xl border-b border-foreground/[0.06]" : "bg-transparent"
       }`}
     >
-      <nav className="max-w-7xl mx-auto px-6 lg:px-10 h-[4.25rem] flex items-center justify-between">
-        {/* Logo */}
-        <a href="/" className="flex items-center group">
-          <Wordmark className="text-[1.35rem]" />
-        </a>
+      <nav className="max-w-6xl mx-auto px-6 lg:px-10 h-14 flex items-center justify-between gap-6">
+        <Link href="/" className="flex items-center shrink-0">
+          <Wordmark className="text-[1.2rem]" />
+        </Link>
 
-        {/* Desktop Links */}
-        <div className="hidden md:flex items-center gap-1">
+        <div className="hidden lg:flex items-center gap-0.5">
           {navLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className="relative px-3.5 py-2 text-[0.825rem] font-medium text-foreground/55 hover:text-foreground transition-colors rounded-lg hover:bg-foreground/[0.03]"
+              className="px-3 py-1.5 text-[0.82rem] font-medium text-foreground/60 hover:text-foreground transition-colors rounded-lg hover:bg-foreground/[0.03]"
             >
               {link.label}
             </a>
           ))}
         </div>
 
-        {/* CTA */}
-        <div className="hidden md:flex items-center gap-3">
-          <a href="/trip-guide" className="text-[0.825rem] font-medium text-foreground/55 hover:text-foreground transition-colors px-3 py-2">
-            Trip Guide
-          </a>
-          <div className="flex items-center rounded-full border border-foreground/10 bg-foreground/2 p-0.5">
-            <button
-              onClick={() => goToAudience("traveler", "/")}
-              className="text-[0.75rem] font-semibold px-3 py-1.5 rounded-full text-coral hover:bg-coral/10 transition-colors"
-            >
-              Travel
-            </button>
-            <button
-              onClick={() => goToAudience("entrepreneur", "/business")}
-              className="text-[0.75rem] font-semibold px-3 py-1.5 rounded-full text-lagoon hover:bg-lagoon/10 transition-colors"
-            >
+        <div className="hidden lg:flex items-center gap-2 shrink-0">
+          <div className="flex items-center rounded-full border border-foreground/10 p-0.5">
+            <button className="text-[0.72rem] font-semibold px-2.5 py-1 rounded-full bg-coral/10 text-coral" aria-current="page">Travel</button>
+            <button onClick={() => goToAudience("entrepreneur", "/business")} className="text-[0.72rem] font-semibold px-2.5 py-1 rounded-full text-foreground/60 hover:text-lagoon transition-colors">
               Business
-            </button>
-            <button
-              onClick={() => goToAudience("investor", "/investors")}
-              className="text-[0.75rem] font-semibold px-3 py-1.5 rounded-full text-emerald hover:bg-emerald/10 transition-colors"
-            >
-              Invest
             </button>
           </div>
           {user ? (
-            <a
-              href="/dashboard"
-              className="group px-5 py-2.5 rounded-full bg-foreground text-white text-[0.825rem] font-semibold hover:bg-foreground/90 transition-all flex items-center gap-1.5"
-            >
-              Dashboard
-              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
-            </a>
+            <Link href="/dashboard" className="group px-4 py-2 rounded-full bg-foreground text-white text-[0.8rem] font-semibold hover:bg-foreground/90 transition-all flex items-center gap-1.5">
+              Dashboard <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+            </Link>
           ) : (
             <>
-              <a href="/auth" className="text-[0.825rem] font-medium text-foreground/55 hover:text-foreground transition-colors px-3 py-2">
-                Sign In
-              </a>
-              <a
-                href="/#cta"
-                className="group px-5 py-2.5 rounded-full bg-foreground text-white text-[0.825rem] font-semibold hover:bg-foreground/90 transition-all flex items-center gap-1.5"
-              >
-                Get Early Access
-                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+              <Link href="/auth" className="text-[0.8rem] font-medium text-foreground/60 hover:text-foreground transition-colors px-2 py-1.5">Sign in</Link>
+              <a href="/#picker" className="group px-4 py-2 rounded-full bg-coral text-white text-[0.8rem] font-semibold shadow-sm hover:shadow-md hover:scale-[1.02] transition-all flex items-center gap-1.5">
+                Plan trip <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
               </a>
             </>
           )}
         </div>
 
-        {/* Mobile toggle */}
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="md:hidden p-2 -mr-2 rounded-lg hover:bg-foreground/[0.04] transition-colors"
+          className="lg:hidden p-2 -mr-2 rounded-lg hover:bg-foreground/[0.04] transition-colors"
           aria-label="Toggle menu"
-          aria-expanded={mobileOpen}
-          aria-controls="mobile-nav"
         >
-          {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+          {mobileOpen ? <X size={18} /> : <Menu size={18} />}
         </button>
       </nav>
 
-      {/* Mobile menu */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            id="mobile-nav"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.25, ease: "easeInOut" }}
-            className="md:hidden glass border-t border-black/[0.04] overflow-hidden"
+            transition={{ duration: 0.2 }}
+            className="lg:hidden bg-white border-t border-foreground/[0.06] overflow-hidden"
           >
-            <div className="px-6 py-5 space-y-1">
+            <div className="px-6 py-4 space-y-1">
               {navLinks.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setMobileOpen(false)}
-                  className="block text-sm font-medium text-foreground/60 hover:text-foreground hover:bg-foreground/[0.03] transition-colors py-2.5 px-3 rounded-lg"
-                >
+                <a key={link.href} href={link.href} onClick={() => setMobileOpen(false)} className="block text-sm font-medium text-foreground/65 hover:bg-foreground/[0.03] transition-colors py-2 px-3 rounded-lg">
                   {link.label}
                 </a>
               ))}
-              <a href="/trip-guide" onClick={() => setMobileOpen(false)} className="block text-sm font-medium text-foreground/60 hover:text-foreground hover:bg-foreground/[0.03] transition-colors py-2.5 px-3 rounded-lg">
-                Trip Guide
-              </a>
               <button
                 onClick={() => { setMobileOpen(false); goToAudience("entrepreneur", "/business"); }}
-                className="block w-full text-left text-sm font-semibold text-lagoon bg-lagoon/5 hover:bg-lagoon/10 transition-colors py-2.5 px-3 rounded-lg"
+                className="block w-full text-left text-sm font-semibold text-lagoon bg-lagoon/5 py-2 px-3 rounded-lg"
               >
-                For Business
+                For Business →
               </button>
-              <button
-                onClick={() => { setMobileOpen(false); goToAudience("investor", "/investors"); }}
-                className="block w-full text-left text-sm font-semibold text-emerald bg-emerald/5 hover:bg-emerald/10 transition-colors py-2.5 px-3 rounded-lg"
-              >
-                For Investors
-              </button>
-              <div className="pt-3 space-y-2">
+              <div className="pt-2 grid gap-2">
                 {user ? (
-                  <a
-                    href="/dashboard"
-                    onClick={() => setMobileOpen(false)}
-                    className="block w-full text-center px-5 py-3 rounded-full bg-foreground text-white text-sm font-semibold"
-                  >
+                  <Link href="/dashboard" onClick={() => setMobileOpen(false)} className="block text-center px-4 py-2.5 rounded-full bg-foreground text-white text-sm font-semibold">
                     Open Dashboard
-                  </a>
+                  </Link>
                 ) : (
                   <>
-                    <a href="/auth" className="block text-center py-2.5 text-sm font-medium text-foreground/60">
-                      Sign In
-                    </a>
-                    <a
-                      href="/#cta"
-                      onClick={() => setMobileOpen(false)}
-                      className="block w-full text-center px-5 py-3 rounded-full bg-foreground text-white text-sm font-semibold"
-                    >
-                      Get Early Access
+                    <Link href="/auth" onClick={() => setMobileOpen(false)} className="block text-center py-2 text-sm font-medium text-foreground/65">Sign in</Link>
+                    <a href="/#picker" onClick={() => setMobileOpen(false)} className="block text-center px-4 py-2.5 rounded-full bg-coral text-white text-sm font-semibold">
+                      Plan my trip
                     </a>
                   </>
                 )}
@@ -200,6 +128,6 @@ export default function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.header>
+    </header>
   );
 }

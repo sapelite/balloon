@@ -418,16 +418,6 @@ async function main() {
       });
     }
 
-    // ─── Waitlist ─────────────────────────────────────────
-    await prisma.waitlist.createMany({
-      data: [
-        { email: "sarah@example.com", source: "hero" },
-        { email: "marc@example.com", source: "cta" },
-        { email: "yuki@example.com", source: "guide" },
-        { email: "james@example.com", source: "partner" },
-      ],
-    });
-
     // ─── Business Client (demo for /business/dashboard) ───
     const bizUser = await prisma.user.create({
       data: {

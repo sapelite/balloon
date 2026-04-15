@@ -1,70 +1,62 @@
+import Link from "next/link";
 import Wordmark from "@/components/Wordmark";
+import { mailHref, whatsappHref } from "@/lib/handoff";
 
 const footerLinks = {
-  Travel: [
-    { label: "How it works", href: "/#how-it-works" },
-    { label: "Pricing", href: "/#pricing" },
-    { label: "Free guides", href: "/guides" },
-    { label: "Trip planner", href: "/trip-guide" },
+  Trip: [
+    { label: "How it works", href: "/#how" },
+    { label: "Included", href: "/#included" },
+    { label: "Areas", href: "/#areas" },
+    { label: "FAQ", href: "/#faq" },
   ],
-  Audiences: [
-    { label: "Travelers", href: "/onboarding" },
+  Skyrol: [
     { label: "For Business", href: "/business" },
-    { label: "For Investors", href: "/investors" },
     { label: "Partners", href: "/partners" },
+    { label: "Free guides", href: "/guides" },
   ],
-  Company: [
-    { label: "Contact", href: "mailto:hello@skyrol.bali" },
+  Contact: [
+    { label: "WhatsApp", href: whatsappHref("Hi Skyrol — question about Bali") },
+    { label: "Email", href: mailHref("Hi Skyrol", "traveler") },
     { label: "Privacy", href: "#" },
-    { label: "Terms", href: "#" },
   ],
 };
 
 export default function Footer() {
   return (
-    <footer className="bg-foreground text-white/50">
-      <div className="max-w-7xl mx-auto px-6 lg:px-10 py-14">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-10">
-          {/* Brand */}
+    <footer className="bg-foreground text-white/55">
+      <div className="max-w-6xl mx-auto px-6 lg:px-10 py-12">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-8 mb-10">
           <div className="lg:col-span-2">
-            <div className="flex items-center mb-4 text-white">
-              <Wordmark className="text-xl" tone="dark" />
-            </div>
-            <p className="text-[0.825rem] leading-relaxed max-w-[280px] mb-5">
-              Quality hotels, drivers, and tables in Canggu, Uluwatu & Ubud — with a concierge on call, 24/7.
+            <Wordmark className="text-[1.25rem] mb-3" tone="dark" />
+            <p className="text-[0.82rem] leading-relaxed max-w-[280px] mb-4">
+              Hand-picked stays, English-speaking drivers, and tables worth flying for — in Canggu, Uluwatu and Ubud.
             </p>
-            <div className="flex gap-2.5">
+            <div className="flex gap-2">
               {["IG", "TK", "X"].map((name) => (
-                <a
-                  key={name}
-                  href="#"
-                  className="w-9 h-9 rounded-full bg-white/[0.04] hover:bg-white/[0.08] transition-colors flex items-center justify-center text-[0.7rem] font-bold text-white/40 hover:text-white/70"
-                >
+                <a key={name} href="#" className="w-8 h-8 rounded-full bg-white/[0.05] hover:bg-white/10 transition-colors flex items-center justify-center text-[0.65rem] font-bold text-white/50 hover:text-white">
                   {name}
                 </a>
               ))}
             </div>
           </div>
-
           {Object.entries(footerLinks).map(([title, links]) => (
             <div key={title}>
-              <h4 className="text-white/80 font-semibold text-[0.825rem] mb-4">{title}</h4>
-              <ul className="space-y-2.5">
+              <h4 className="text-white/80 font-semibold text-[0.8rem] mb-3 uppercase tracking-[0.1em]">{title}</h4>
+              <ul className="space-y-2">
                 {links.map((link) => (
                   <li key={link.label}>
-                    <a href={link.href} className="text-[0.825rem] hover:text-white/80 transition-colors">
-                      {link.label}
-                    </a>
+                    <a href={link.href} className="text-[0.82rem] hover:text-white transition-colors">{link.label}</a>
                   </li>
                 ))}
               </ul>
             </div>
           ))}
         </div>
-
-        <div className="mt-12 pt-7 border-t border-white/[0.05] flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-[0.75rem] text-white/25">&copy; 2026 Skyrol. All rights reserved.</p>
-          <p className="text-[0.75rem] text-white/25">Made with care for Bali travelers.</p>
+        <div className="pt-6 border-t border-white/[0.06] flex flex-col sm:flex-row items-center justify-between gap-2">
+          <p className="text-[0.72rem] text-white/30">&copy; 2026 Skyrol. Built in Bali.</p>
+          <Link href="/business" className="text-[0.72rem] text-white/30 hover:text-white/60 transition-colors">
+            Run a business here? →
+          </Link>
         </div>
       </div>
     </footer>

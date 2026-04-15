@@ -202,10 +202,3 @@ model Guide {
   updatedAt   DateTime @updatedAt
 }
 
-// ─── Waitlist ────────────────────────────────────────────
-model Waitlist {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  source    String?  // hero | cta | guide | partner
-  createdAt DateTime @default(now())
-}

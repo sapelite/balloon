@@ -106,7 +106,7 @@ export async function getPackCookie() {
   return v && ["lite", "essentials", "full"].includes(v) ? v : "essentials";
 }
 
-export async function setAudienceCookie(audience: "traveler" | "entrepreneur" | "investor") {
+export async function setAudienceCookie(audience: "traveler" | "entrepreneur") {
   const store = await cookies();
   store.set(AUDIENCE_COOKIE, audience, {
     httpOnly: false,
@@ -117,12 +117,10 @@ export async function setAudienceCookie(audience: "traveler" | "entrepreneur" | 
   });
 }
 
-export async function getAudienceCookie(): Promise<"traveler" | "entrepreneur" | "investor" | null> {
+export async function getAudienceCookie(): Promise<"traveler" | "entrepreneur" | null> {
   const store = await cookies();
   const v = store.get(AUDIENCE_COOKIE)?.value;
-  // Back-compat: legacy "business" cookie maps to entrepreneur.
-  if (v === "business") return "entrepreneur";
-  return v === "traveler" || v === "entrepreneur" || v === "investor" ? v : null;
+  return v === "traveler" || v === "entrepreneur" ? v : null;
 }
 
 export async function getPurchasedPack(): Promise<string | null> {

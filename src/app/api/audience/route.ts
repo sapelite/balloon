@@ -14,7 +14,6 @@ export async function POST(req: NextRequest) {
     const audience = oneOf(body.audience, "audience", [
       "traveler",
       "entrepreneur",
-      "investor",
     ] as const);
     await setAudienceCookie(audience);
     return NextResponse.json({ ok: true, audience });
